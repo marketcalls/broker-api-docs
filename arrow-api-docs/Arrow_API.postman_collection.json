@@ -1,0 +1,890 @@
+{
+  "info": {
+    "_postman_id": "72bc4a64-aab2-4819-93a1-5290152b17b7",
+    "name": "Developer (Arrow)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45071350",
+    "_collection_link": "https://go.postman.co/collection/45071350-72bc4a64-aab2-4819-93a1-5290152b17b7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Authenticate Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"checkSum\": \"ba4f6d94618ec8a56ac32e25053c20378d4cb2ad319c83bbc634ad59e160c94f\",\n    \"token\": \"01K6EWYVWWKYQXNQHEFS897S1C\",\n    \"appID\": \"90a33d77c48c\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/auth/app/authenticate-token",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "auth",
+                "app",
+                "authenticate-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Place Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"exchange\": \"NSE\",\n    \"quantity\": \"2\",\n    \"disclosedQty\": \"0\",\n    \"product\": \"I\",\n    \"symbol\": \"IDEA-EQ\",\n    \"transactionType\": \"B\",\n    \"order\": \"MKT\",\n    \"price\": \"0\",\n    \"validity\": \"DAY\",\n    \"tags\": \"strategy_1\",\n    \"amo\": false,\n    \"triggerPrice\": \"0\",\n    \"mpp\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/order/regular",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "order",
+                "regular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify Order",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"exchange\": \"NSE\",\n    \"quantity\": \"2\",\n    \"disclosedQty\": \"0\",\n    \"product\": \"I\",\n    \"symbol\": \"IDEA-EQ\",\n    \"transactionType\": \"B\",\n    \"order\": \"MKT\",\n    \"price\": \"0\",\n    \"validity\": \"DAY\",\n    \"tags\": \"strategy_1\",\n    \"amo\": false,\n    \"triggerPrice\": \"0\",\n    \"mpp\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/order/regular",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "order",
+                "regular"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"exchange\": \"NSE\",\n    \"quantity\": \"2\",\n    \"disclosedQty\": \"0\",\n    \"product\": \"I\",\n    \"symbol\": \"IDEA-EQ\",\n    \"transactionType\": \"B\",\n    \"order\": \"MKT\",\n    \"price\": \"0\",\n    \"validity\": \"DAY\",\n    \"tags\": \"strategy_1\",\n    \"amo\": false,\n    \"triggerPrice\": \"0\",\n    \"mpp\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/order/regular/25120202000013",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "order",
+                "regular",
+                "25120202000013"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order Book",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/orders",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Trade Book",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/trades",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "trades"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order Details",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/order/25091801000003",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "order",
+                "25091801000003"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Profile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/details",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "details"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "item": [
+        {
+          "name": "Positions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/positions",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "positions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Holding",
+      "item": [
+        {
+          "name": "Holdings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/holdings",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "holdings"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utility",
+      "item": [
+        {
+          "name": "Option Chain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json, text/plain, */*"
+              },
+              {
+                "key": "accept-language",
+                "value": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              },
+              {
+                "key": "dnt",
+                "value": "1"
+              },
+              {
+                "key": "origin",
+                "value": "https://app.stg.arrow.trade"
+              },
+              {
+                "key": "pragma",
+                "value": "no-cache"
+              },
+              {
+                "key": "priority",
+                "value": "u=1, i"
+              },
+              {
+                "key": "referer",
+                "value": "https://app.stg.arrow.trade/"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              },
+              {
+                "key": "sec-fetch-dest",
+                "value": "empty"
+              },
+              {
+                "key": "sec-fetch-mode",
+                "value": "cors"
+              },
+              {
+                "key": "sec-fetch-site",
+                "value": "same-site"
+              },
+              {
+                "key": "session",
+                "value": "14385063262050871829"
+              },
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTSjAwMDEiLCJpc3MiOiJhcnJvdyIsInN1YiI6IndlYiIsImV4cCI6MTc2NTQ3Nzc5OSwiaWF0IjoxNzY1NDMyOTQ2fQ.Xh7jlmFxq0RfV-fhhvsvbKdqpipWgpmJsBSa_rvxu6IhywPochM0TXCdUZPu0i9sE-o3rQ8n9yIw-vyZR2UzDA"
+              },
+              {
+                "key": "user-agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "Cookie",
+                "value": "session=14385063262050871829; token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTSjAwMDEiLCJpc3MiOiJhcnJvdyIsInN1YiI6IndlYiIsImV4cCI6MTc2NTQ3Nzc5OSwiaWF0IjoxNzY1NDMyOTQ2fQ.Xh7jlmFxq0RfV-fhhvsvbKdqpipWgpmJsBSa_rvxu6IhywPochM0TXCdUZPu0i9sE-o3rQ8n9yIw-vyZR2UzDA"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"underlying\":\"SBIN-EQ\",\"exchange\":\"NSE\",\"count\":\"22\",\"expiry\":\"30-DEC-2025\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.arrow.trade/oms/info/option-chain",
+              "protocol": "https",
+              "host": [
+                "api",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "oms",
+                "info",
+                "option-chain"
+              ]
+            },
+            "description": "Generated from cURL: curl 'https://api.arrow.trade/oms/info/option-chain' \\\n  -H 'accept: application/json, text/plain, */*' \\\n  -H 'accept-language: en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7' \\\n  -H 'cache-control: no-cache' \\\n  -H 'content-type: application/json' \\\n  -b 'session=14385063262050871829; token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTSjAwMDEiLCJpc3MiOiJhcnJvdyIsInN1YiI6IndlYiIsImV4cCI6MTc2NTQ3Nzc5OSwiaWF0IjoxNzY1NDMyOTQ2fQ.Xh7jlmFxq0RfV-fhhvsvbKdqpipWgpmJsBSa_rvxu6IhywPochM0TXCdUZPu0i9sE-o3rQ8n9yIw-vyZR2UzDA' \\\n  -H 'dnt: 1' \\\n  -H 'origin: https://app.stg.arrow.trade' \\\n  -H 'pragma: no-cache' \\\n  -H 'priority: u=1, i' \\\n  -H 'referer: https://app.stg.arrow.trade/' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: empty' \\\n  -H 'sec-fetch-mode: cors' \\\n  -H 'sec-fetch-site: same-site' \\\n  -H 'session: 14385063262050871829' \\\n  -H 'token: eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTSjAwMDEiLCJpc3MiOiJhcnJvdyIsInN1YiI6IndlYiIsImV4cCI6MTc2NTQ3Nzc5OSwiaWF0IjoxNzY1NDMyOTQ2fQ.Xh7jlmFxq0RfV-fhhvsvbKdqpipWgpmJsBSa_rvxu6IhywPochM0TXCdUZPu0i9sE-o3rQ8n9yIw-vyZR2UzDA' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36' \\\n  --data-raw '{\"underlying\":\"SBIN-EQ\",\"exchange\":\"NSE\",\"count\":\"22\",\"expiry\":\"30-DEC-2025\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Holidays",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/info/holidays",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "info",
+                "holidays"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://edge.arrow.trade/order/regular' \\\n--header 'appID: <YOUR_APP_ID>' \\\n--header 'token: <YOUR_TOKEN>' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"exchange\": \"NSE\",\n    \"quantity\": \"2\",\n    \"disclosedQty\": \"0\",\n    \"product\": \"I\",\n    \"symbol\": \"RELIANCE-EQ\",\n    \"transactionType\": \"B\",\n    \"order\": \"MKT\",\n    \"price\": \"0\",\n    \"validity\": \"DAY\",\n    \"tags\": \"strategy_1\",\n    \"amo\": false,\n    \"triggerPrice\": \"0\",\n    \"mpp\": true\n}'\n"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Data",
+      "item": [
+        {
+          "name": "Multiple Quote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    {\n        \"exchange\": \"NFO\",\n        \"symbol\": \"NIFTY03FEB26C24900\"\n    },\n    {\n        \"exchange\": \"BFO\",\n        \"symbol\": \"SENSEX05FEB26C78000\"\n    }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/info/quotes/ltp",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "info",
+                "quotes",
+                "ltp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Single Quote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\n    {\n        \"exchange\": \"NFO\",\n        \"symbol\": \"NIFTY03FEB26C24900\"\n    }\n    ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/info/quotes/ltp",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "info",
+                "quotes",
+                "ltp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Equity Historical Data",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/info/holidays",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "info",
+                "holidays"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://edge.arrow.trade/order/regular' \\\n--header 'appID: <YOUR_APP_ID>' \\\n--header 'token: <YOUR_TOKEN>' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"exchange\": \"NSE\",\n    \"quantity\": \"2\",\n    \"disclosedQty\": \"0\",\n    \"product\": \"I\",\n    \"symbol\": \"RELIANCE-EQ\",\n    \"transactionType\": \"B\",\n    \"order\": \"MKT\",\n    \"price\": \"0\",\n    \"validity\": \"DAY\",\n    \"tags\": \"strategy_1\",\n    \"amo\": false,\n    \"triggerPrice\": \"0\",\n    \"mpp\": true\n}'\n"
+          },
+          "response": []
+        },
+        {
+          "name": "Options Historical Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}"
+              }
+            ],
+            "url": {
+              "raw": "https://historical-api.arrow.trade/candle/nse/3045/day?from=2023-05-01T00:00:00&to=2023-06-29T20:00:00",
+              "protocol": "https",
+              "host": [
+                "historical-api",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "candle",
+                "nse",
+                "3045",
+                "day"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2023-05-01T00:00:00"
+                },
+                {
+                  "key": "to",
+                  "value": "2023-06-29T20:00:00"
+                }
+              ]
+            },
+            "description": "Generated from cURL:   curl --location 'https://historical-api.arrow.trade/candle/nse/3045/day?from=2023-05-01T00:00:00&to=2023-06-29T20:00:00' \\\n    --header 'appID: <YOUR_APP_ID>' \\\n    --header 'token: <YOUR_TOKEN>'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Margin",
+      "item": [
+        {
+          "name": "Order Margin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"orders\": [\n        {\n            \"exchange\": \"BSE\",\n            \"quantity\": \"10\",\n            \"price\": \"1000\",\n            \"product\": \"C\",\n            \"transactionType\": \"B\",\n            \"order\": \"LMT\",\n            \"symbol\": \"RELIANCE\"\n        },\n        {\n            \"exchange\": \"NSE\",\n            \"quantity\": \"10\",\n            \"price\": \"1000\",\n            \"product\": \"C\",\n            \"transactionType\": \"B\",\n            \"order\": \"LMT\",\n            \"symbol\": \"RELIANCE-EQ\"\n        }\n    ],\n    \"includePositions\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/margin/basket",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "margin",
+                "basket"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Limits",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "appID",
+                "value": "{{appID}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://edge.arrow.trade/user/details",
+              "protocol": "https",
+              "host": [
+                "edge",
+                "arrow",
+                "trade"
+              ],
+              "path": [
+                "user",
+                "details"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
