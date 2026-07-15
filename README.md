@@ -14,6 +14,7 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 | Dhan (DhanHQ v2) | [`dhan-api-docs/`](dhan-api-docs/) | https://dhanhq.co/docs/v2/ |
 | Fyers (API v3) | [`fyers-api-docs/`](fyers-api-docs/) | https://myapi.fyers.in/docsv3 |
 | INDstocks | [`indstocks-api-docs/`](indstocks-api-docs/) | https://api-docs.indstocks.com/ |
+| Nubra | [`nubra/`](nubra/) | https://uatapi.nubra.io |
 | Upstox | [`upstox-api-docs/`](upstox-api-docs/) | https://upstox.com/developer/api-documentation |
 | Zerodha (Kite Connect v3) | [`zerodha-api-docs/`](zerodha-api-docs/) | https://kite.trade/docs/connect/v3/ |
 
