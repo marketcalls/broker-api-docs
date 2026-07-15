@@ -1,0 +1,32 @@
+# Broker API Docs
+
+A growing collection of Indian stockbroker API documentation, converted to clean Markdown for offline reading, grepping, diffing across versions, and feeding into AI coding tools (Claude Code, Cursor, GitHub Copilot, etc.) as context.
+
+Each broker's docs live in their own folder, one Markdown file per section/page, generally sourced from the broker's official developer documentation portal.
+
+## Brokers
+
+| Broker | Folder | Source |
+| --- | --- | --- |
+| Aliceblue (ANT API) | [`aliceblue-api-docs/`](aliceblue-api-docs/) | https://ant.aliceblueonline.com/productdocumentation/ |
+| AngelOne (SmartAPI) | [`angelone-api-docs/`](angelone-api-docs/) | https://smartapi.angelone.in/docs |
+| Definedge Securities (INTEGRATE) | [`definedge-api-docs/`](definedge-api-docs/) | https://www.definedgesecurities.com/api-documentation/ |
+| Dhan (DhanHQ v2) | [`dhan-api-docs/`](dhan-api-docs/) | https://dhanhq.co/docs/v2/ |
+| Fyers (API v3) | [`fyers-api-docs/`](fyers-api-docs/) | https://myapi.fyers.in/docsv3 |
+| INDstocks | [`indstocks-api-docs/`](indstocks-api-docs/) | https://api-docs.indstocks.com/ |
+| Upstox | [`upstox-api-docs/`](upstox-api-docs/) | https://upstox.com/developer/api-documentation |
+| Zerodha (Kite Connect v3) | [`zerodha-api-docs/`](zerodha-api-docs/) | https://kite.trade/docs/connect/v3/ |
+
+More brokers will be added over time.
+
+## Why
+
+Broker API docs are scattered across HTML portals, PDFs, and inconsistent formats. This repo mirrors them as plain Markdown so they're easy to:
+
+- Read and grep offline
+- Diff across API versions
+- Feed directly into LLM context windows for coding assistants
+
+## Disclaimer
+
+These are unofficial Markdown conversions maintained for personal/educational reference. Each broker's original documentation is the authoritative source — always verify against it. Trademarks and content belong to their respective brokers.
