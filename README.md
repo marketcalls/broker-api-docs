@@ -13,6 +13,7 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 | Arrow Trade (REST API + Python SDK) | [`arrow-api-docs/`](arrow-api-docs/) | https://docs.arrow.trade/ |
 | Definedge Securities (INTEGRATE) | [`definedge-api-docs/`](definedge-api-docs/) | https://www.definedgesecurities.com/api-documentation/ |
 | Dhan (DhanHQ v2) | [`dhan-api-docs/`](dhan-api-docs/) | https://dhanhq.co/docs/v2/ |
+| Firstock (Developer API) | [`firstock-api-docs/`](firstock-api-docs/) | https://firstock.in/api/docs/ |
 | Flattrade (Pi) | [`flattrade-api-docs/`](flattrade-api-docs/) | https://pi.flattrade.in/docs |
 | Fyers (API v3) | [`fyers-api-docs/`](fyers-api-docs/) | https://myapi.fyers.in/docsv3 |
 | HDFC Sky (Open API) | [`hdfcsky-api-docs/`](hdfcsky-api-docs/) | https://developer.hdfcsky.com/sky-docs/docs/intro |
