@@ -15,8 +15,10 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 | Dhan (DhanHQ v2) | [`dhan-api-docs/`](dhan-api-docs/) | https://dhanhq.co/docs/v2/ |
 | Flattrade (Pi) | [`flattrade-api-docs/`](flattrade-api-docs/) | https://pi.flattrade.in/docs |
 | Fyers (API v3) | [`fyers-api-docs/`](fyers-api-docs/) | https://myapi.fyers.in/docsv3 |
+| HDFC Sky (Open API) | [`hdfcsky-api-docs/`](hdfcsky-api-docs/) | https://developer.hdfcsky.com/sky-docs/docs/intro |
 | IIFL Capital (Markets' APIs) | [`iiflcapital-api-docs/`](iiflcapital-api-docs/) | https://developers.iiflcapital.com/apidocs/introduction |
 | INDstocks | [`indstocks-api-docs/`](indstocks-api-docs/) | https://api-docs.indstocks.com/ |
+| Kotak Securities (Neo Trade API v2) | [`kotak-api-docs/`](kotak-api-docs/) | https://app.notion.com/p/Client-documentation-236da70d37e280b3a979fc7be7b003bc |
 | Nubra | [`nubra/`](nubra/) | https://uatapi.nubra.io |
 | Upstox | [`upstox-api-docs/`](upstox-api-docs/) | https://upstox.com/developer/api-documentation |
 | Zerodha (Kite Connect v3) | [`zerodha-api-docs/`](zerodha-api-docs/) | https://kite.trade/docs/connect/v3/ |
