@@ -27,17 +27,28 @@ instruments.
 
 | Interval | `{interval}` value | Max Range per Request |
 |----------|--------------------|-----------------------|
-| 1 Second | `1second` | 1 Day |
 | 1 Minute | `1minute` | 7 Days |
+| 2 Minutes | `2minute` | 7 Days |
+| 3 Minutes | `3minute` | 7 Days |
+| 4 Minutes | `4minute` | 7 Days |
+| 5 Minutes | `5minute` | 7 Days |
+| 10 Minutes | `10minute` | 7 Days |
+| 15 Minutes | `15minute` | 7 Days |
+| 30 Minutes | `30minute` | 7 Days |
 | 1 Hour | `60minute` | 14 Days |
+| 2 Hours | `120minute` | 14 Days |
+| 3 Hours | `180minute` | 14 Days |
+| 4 Hours | `240minute` | 14 Days |
 | 1 Day | `1day` | 1 Year |
 | 1 Week | `1week` | 1 Year |
 | 1 Month | `1month` | 1 Year |
 
+> There is **no `1second` interval**. The finest granularity is `1minute`.
+
 ### Request
 
 ```bash
-curl 'https://api.indstocks.com/market/historical/1minute?scrip-codes=NSE_3045&start_time=1750055540000&end_time=1750141940000' \
+curl --location 'https://api.indstocks.com/market/historical/1minute?scrip-codes=NSE_3045&start_time=1750055540000&end_time=1750141940000' \
   --header 'Authorization: YOUR_ACCESS_TOKEN'
 ```
 
@@ -45,31 +56,38 @@ curl 'https://api.indstocks.com/market/historical/1minute?scrip-codes=NSE_3045&s
 
 ```json
 {
-  "status": "success",
+  "success": true,
   "data": {
-    "candles": [
-      [1678886400000, 2500.00, 2501.50, 2499.50, 2501.00, 500],
-      [1678886460000, 2501.00, 2502.00, 2500.50, 2501.80, 650]
-    ]
+    "NSE_1594": {
+      "candles": [
+        { "ts": 1782877500, "o": 1007, "h": 1013.9, "l": 999.3, "c": 1000.4, "v": 2847163 },
+        { "ts": 1782881100, "o": 1000.4, "h": 1002, "l": 996.7, "c": 999.6, "v": 1389042 }
+      ]
+    }
   }
 }
 ```
 
-Each candle is an array in the order:
+> ⚠️ **This endpoint does not use the standard response envelope.** It returns
+> `"success": true` rather than `"status": "success"` — see
+> [API Conventions](03-conventions.md#standard-response-envelope). Errors from this endpoint
+> use the matching `{"message": "...", "success": false}` shape.
 
-```
-[ timestamp, open, high, low, close, volume ]
-```
+`data` is keyed by **scrip code**, so a multi-instrument request returns one `candles` array
+per instrument (they are not merged into a single series).
 
-| Index | Field | Description |
-|-------|-------|-------------|
-| 0 | `timestamp` | Candle start time, Unix epoch milliseconds (IST) |
-| 1 | `open` | Opening price |
-| 2 | `high` | Highest price |
-| 3 | `low` | Lowest price |
-| 4 | `close` | Closing price |
-| 5 | `volume` | Traded volume |
+| Field | Description |
+|-------|-------------|
+| `ts` | Candle timestamp, Unix epoch **seconds** (IST) |
+| `o` | Opening price |
+| `h` | Highest price |
+| `l` | Lowest price |
+| `c` | Closing price |
+| `v` | Traded volume |
 
-> **Note:** All timestamps are in **IST** and expressed in Unix epoch **milliseconds**. Keep
-> each request within the max range for the chosen interval and paginate over time windows for
-> longer histories.
+> ⚠️ **Unit mismatch:** the `start_time` / `end_time` *query parameters* are epoch
+> **milliseconds**, but the candle `ts` in the *response* is epoch **seconds**. Multiply
+> `ts` by 1000 before comparing against your request window.
+
+> **Note:** Keep each request within the max range for the chosen interval and paginate over
+> time windows for longer histories.
