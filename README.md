@@ -8,6 +8,7 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 
 | Broker | Folder | Source |
 | --- | --- | --- |
+| 5paisa (Xstream API) | [`fivepaisa-api-docs/`](fivepaisa-api-docs/) | https://xstream.5paisa.com/dev-docs |
 | Aliceblue (ANT API) | [`aliceblue-api-docs/`](aliceblue-api-docs/) | https://ant.aliceblueonline.com/productdocumentation/ |
 | AngelOne (SmartAPI) | [`angelone-api-docs/`](angelone-api-docs/) | https://smartapi.angelone.in/docs |
 | Arrow Trade (REST API + Python SDK) | [`arrow-api-docs/`](arrow-api-docs/) | https://docs.arrow.trade/ |
