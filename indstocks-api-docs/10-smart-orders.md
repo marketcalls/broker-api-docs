@@ -112,9 +112,22 @@ Placement returns both the parent and its child order in a unified response:
 ## Behaviour & Constraints
 
 - **MARKET** orders auto-convert to **LIMIT** at the live price.
+- Omitting `trigger_limit_price` defaults it to equal `trigger_price`, so the order executes
+  as a trigger-limit.
 - Both the stop-loss and target legs require their corresponding `*_limit_price`.
+- Child (GTT) orders activate **only after** the parent order executes. If the parent is
+  cancelled or rejected, the child never activates.
+- Parent and child orders are managed independently — modify or cancel each with its own
+  order ID.
+
+### Validation Rules
+
+- Quantity must be above zero, within the freeze limit, and a multiple of the lot size.
 - Trigger prices must be multiples of the instrument's **tick size**.
 - **BUY** triggers must be **above** the current market price; **SELL** triggers must be
   **below** it.
-- Child (GTT) orders activate **only after** the parent order executes.
-- Parent and child cancellations must be performed separately with their own order IDs.
+- The stop-loss trigger must be **less than** the stop-loss limit price.
+- The target trigger must be **greater than** the entry limit price.
+
+> Smart orders remain active for up to **365 days**, or until the trigger fires, you cancel
+> them, or the instrument expires.

@@ -14,6 +14,10 @@ All failed requests return a JSON body with this structure:
 }
 ```
 
+> **Alternative shape.** The Instruments and Market Quotes endpoints return
+> `{"message": "...", "success": false}` — with **no** `status` or `error_type` field. Handle
+> both shapes when parsing errors.
+
 ## HTTP Status Code Conventions
 
 | Range | Meaning |
@@ -27,7 +31,7 @@ All failed requests return a JSON body with this structure:
 | Error Type | HTTP Status | Description |
 |------------|-------------|-------------|
 | `InputException` | 400 Bad Request | The request is invalid — malformed JSON, missing parameters, or incorrect data types. |
-| `TokenException` | 403 Forbidden | The provided access token is invalid, expired, or revoked. Re-authenticate. |
+| `TokenException` | 403 Forbidden (sometimes 401) | The provided access token is invalid, expired, or revoked. Re-authenticate. |
 | `UserException` | 403 Forbidden | Authenticated user lacks permission — account status or missing segment activation. |
 | `NotFoundException` | 404 Not Found | The requested endpoint or resource (e.g., a specific order ID) could not be found. |
 | `MethodNotAllowedException` | 405 Method Not Allowed | Incorrect HTTP method used (e.g., GET instead of POST). |
@@ -41,6 +45,22 @@ All failed requests return a JSON body with this structure:
 
 Exceeding a rate limit returns **`429 Too Many Requests`**. See
 [API Conventions](03-conventions.md#rate-limits) for per-category limits.
+
+## Token Generation Errors (TOTP)
+
+Applies to the `POST /generate/token` endpoint only.
+
+| Situation | Meaning | Action |
+|-----------|---------|--------|
+| Wrong MPIN | MPIN doesn't match the account | Fix the MPIN; not retryable as-is |
+| Wrong / expired TOTP | Code mistyped, already used, or outside its validity window | Wait for the next code — **never retry the same code** |
+| Throttled | Endpoint called more than once in 60 seconds | Reuse the existing token |
+| Locked out | 5 wrong codes in 15 min (15-min lockout), or 3 lockouts in 1 hour (1-hour lockout) | Wait the full window; verify NTP sync |
+| Clock drift | Server time mismatch against the TOTP window | Sync the host clock via NTP |
+| TOTP disabled | Secret deleted from the dashboard | Re-run the dashboard TOTP setup |
+
+See [Authentication & Users](04-authentication-users.md#method-2--totp-based-token-generation)
+for the setup flow and limits.
 
 ## Order-Specific Errors
 
@@ -60,10 +80,30 @@ Order rejections typically return `OrderException` (400 Bad Request) with an RMS
 | `Position could not be found.` | Order doesn't exist or is already completed |
 | `The order is already pending...` | Order is awaiting exchange confirmation |
 
-## Handling Guidance
+## Retry Guidance
 
-- On `TokenException`, generate a fresh access token and retry.
-- On `NetworkException`, `GatewayTimeoutException`, or `ServiceUnavailableException`, retry
-  with backoff — these are transient.
-- On `429`, back off and respect the rate limits.
+**Safe to retry with backoff:** `NetworkException`, `GatewayTimeoutException`,
+`ServiceUnavailableException`, other `5xx`, and `429`.
+
+**Not retryable without fixing the request:** `InputException`, `TokenException`,
+`UserException`, `NotFoundException`, `MethodNotAllowedException`, `DataException`.
+
+- On `TokenException`, generate a fresh access token (dashboard or TOTP) and retry.
+- On `429`, back off and add a client-side rate limiter.
 - On `InputException` / `OrderException`, fix the request payload before retrying.
+
+> ⚠️ **Never blindly retry order placement.** On a timeout or 5xx during `/order`, query the
+> [Order Book](09-order-management.md#get-order-book) first to confirm the actual state —
+> otherwise you risk duplicate orders.
+
+## Quick Troubleshooting
+
+| Situation | HTTP Code | Resolution |
+|-----------|-----------|------------|
+| All requests fail | 403 / 401 | Token empty, wrong, or expired — regenerate |
+| Token stops working mid-day | 403 | Replaced or revoked by another process or the dashboard |
+| `/generate/token` fails | — | Wrong MPIN/TOTP, 60-second throttle, lockout, or clock drift |
+| A single request fails | 400 | Read `message` and validate against the endpoint docs |
+| Failures only under load | 429 | Rate limit hit — implement backoff |
+| Order rejected | 400 | Check the RMS message table above |
+| Intermittent failures | 5xx | Transient — retry with backoff, reconcile via the Order Book |

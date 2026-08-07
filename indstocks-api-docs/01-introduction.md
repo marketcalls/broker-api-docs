@@ -32,8 +32,10 @@ https://api.indstocks.com
 
 1. **[Getting Started](02-getting-started.md)** — generate a token and make your first call
 2. **[API Conventions](03-conventions.md)** — headers, formats, rate limits
-3. **[Authentication & Users](04-authentication-users.md)** — verify your token
+3. **[Authentication & Users](04-authentication-users.md)** — verify your token, or automate
+   token generation with TOTP
 4. **[Order Management](09-order-management.md)** — place your first order
+5. **[Glossary & Constants](16-glossary.md)** — enum, prefix, and identifier reference
 
 Algorithmic traders should also review **[Smart Orders (GTT)](10-smart-orders.md)** for
 stop-loss / target automation.

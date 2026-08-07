@@ -61,16 +61,20 @@ See **[Error Codes](14-errors.md)** for the full list.
 
 ## Rate Limits
 
-| Category | Per Second | Per Day | Notes |
-|----------|-----------|---------|-------|
-| Order APIs | 10 | — | Max 25 modifications per order |
-| Data APIs | 5 | 100,000 | Instruments, historical data |
-| Quote APIs | 5 | 100,000 | Full / LTP / market depth quotes |
-| Non-Trading APIs | 15 | 100,000 | Profile, Funds, Order History, etc. |
-| WebSocket Connections | — | — | Up to **3** connections per user |
-| WebSocket Subscriptions | — | — | Up to **3,000** instruments per connection |
+| Category | Per Second | Per Minute | Per Day | Notes |
+|----------|-----------|------------|---------|-------|
+| Order APIs | 10 | — | — | Max 25 modifications per order |
+| Data APIs | 5 | — | 100,000 | Instruments, historical data |
+| Quote APIs | 5 | — | 100,000 | Full / LTP / market depth quotes |
+| Non-Trading APIs | 15 | — | 100,000 | Profile, Funds, Order History, etc. |
+| Token Generation | — | **1** | — | `/generate/token` (TOTP) — 1 per 60 seconds |
+| WebSocket Connections | — | — | — | Up to **3** connections per user |
+| WebSocket Subscriptions | — | — | — | Up to **3,000** instruments per connection |
 
 Exceeding a limit returns **`429 Too Many Requests`**.
+
+> `/generate/token` has additional lockout rules on top of the throttle — see
+> [Authentication & Users](04-authentication-users.md#rate-limits--lockouts).
 
 ## Instrument Identifiers
 
