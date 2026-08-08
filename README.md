@@ -25,6 +25,7 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 | Samco (Trade API v3.2) | [`samco-api-docs/`](samco-api-docs/) | https://docs-tradeapi.samco.in/ |
 | Shoonya (Finvasia Noren) | [`shoonya-api-docs/`](shoonya-api-docs/) | https://shoonya.com/api-documentation |
 | TradeSmart (Noren v2) | [`tradesmart-api-docs.md`](tradesmart-api-docs.md) | https://web.tradesmartonline.in/api |
+| Tradejini (CubePlus API v2) | [`tradejini-api-docs/`](tradejini-api-docs/) | https://developer.tradejini.com/docs |
 | Upstox | [`upstox-api-docs/`](upstox-api-docs/) | https://upstox.com/developer/api-documentation |
 | Zebu (MYNT, Noren) | [`zebu-api-docs/`](zebu-api-docs/) | https://zebumyntapi.web.app/ |
 | Zerodha (Kite Connect v3) | [`zerodha-api-docs/`](zerodha-api-docs/) | https://kite.trade/docs/connect/v3/ |
