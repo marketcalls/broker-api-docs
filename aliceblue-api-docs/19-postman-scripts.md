@@ -80,9 +80,19 @@ against the `https://a3.aliceblueonline.com` base URL:
 | OPTION CHAIN | `obrest/optionChain/getUnderlying`, `getUnderlyingExp`, `getOptionChain` |
 | WEBSOCKET | `createWsToken` |
 
-The collection ships an `Open_token` collection variable holding a sample JWT.
-It is an **expired UAT token** (issuer `idaasuat.aliceblueonline.com`, expired
-August 2025) included verbatim by Aliceblue — not a live credential. Replace it
-with your own `userSession` before sending any request.
+### Deviation from the upstream file
+
+The upstream collection hard-codes real bearer JWTs in five places. Those tokens
+are all expired, but a JWT payload is base64, not encryption, so it stays
+readable regardless — and these payloads carry the name, broker client code
+(UCC), and in one case the mobile number and email address of three real
+Aliceblue account holders.
+
+This vendored copy therefore **replaces all five token values with the Postman
+variable `{{Open_token}}`**, and ships `Open_token` as an empty collection
+variable. Nothing else is changed; the 9 folders and 26 requests are untouched.
+
+Set `Open_token` once to the `userSession` you get from
+[Authentication](02-authentication.md) and every request picks it up.
 
 [Download](https://v2api.aliceblueonline.com/PDF/Aliceblue_Postman_Collection.json)

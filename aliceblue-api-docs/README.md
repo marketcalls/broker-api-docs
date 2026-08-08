@@ -39,8 +39,14 @@ https://a3.aliceblueonline.com
 — vendored copy of the official collection linked from the Postman Scripts page
 (`OPEN-API ALICEBLUE A3 Copy`, Postman schema v2.1.0; 9 folders covering auth,
 orders, GTT, positions, holdings, limits, profile, option chain, and websocket).
-Import it into Postman via Import -> drag and drop. Its `Open_token` variable
-holds an expired UAT sample JWT; replace it with your own `userSession`.
+Import it into Postman via Import -> drag and drop, then set the `Open_token`
+collection variable to your own `userSession`.
+
+This copy is **not byte-identical to upstream**: the upstream file hard-codes
+real bearer JWTs whose payloads expose the name, client code (UCC), mobile
+number, and email of actual account holders. All five token values have been
+replaced with `{{Open_token}}` and the variable left empty. Requests and folders
+are otherwise unmodified.
 
 ## Notes
 
