@@ -1,0 +1,1005 @@
+{
+	"info": {
+		"_postman_id": "1dc7a5bd-1163-42fe-8599-b644d6476318",
+		"name": "OPEN-API ALICEBLUE A3 Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39362551",
+		"_collection_link": "https://kambala-7346.postman.co/workspace/ALICEBLUE~d793f93a-7d2e-4325-bc55-c18031f27ccf/collection/39362551-1dc7a5bd-1163-42fe-8599-b644d6476318?action=share&source=collection_link&creator=39362551"
+	},
+	"item": [
+		{
+			"name": "AUTH USER SESSION",
+			"item": [
+				{
+					"name": "getUsersession",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkSum\":\"585cd894dde1b52aec66509578ac5efd1f62d34b24cb166eb05e3de01b516787\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"vendor",
+								"getUserDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORDERS",
+			"item": [
+				{
+					"name": "place order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t[\r\n    // {\r\n    //     \"exchange\": \"NSE\",\r\n    //     \"instrumentId\": \"22\",\r\n    //     \"transactionType\": \"BUY\",\r\n    //     \"quantity\": 30,\r\n    //     \"product\": \"LONGTERM\",\r\n    //     \"orderComplexity\": \"REGULAR\",\r\n    //     \"orderType\": \"LIMIT\",\r\n    //     \"validity\": \"DAY\",\r\n    //     \"price\": \"1120.15\",\r\n    //     \"slLegPrice\": \"1110.00\",\r\n    //     \"targetLegPrice\": \"3333\",\r\n    //     \"slTriggerPrice\": \"11\",\r\n    //     \"disclosedQuantity\": \"\",\r\n    //     \"marketProtectionPercent\": \"\",\r\n    //     \"deviceId\": \"123\",\r\n    //     \"trailingSlAmount\": \"\",\r\n    //     \"apiOrderSource\": \"\",\r\n    //     \"algoId\": \"\",\r\n    //      \"orderTag\":\"\"\r\n    // }\r\n    {\r\n        \"exchange\": \"NSE\",\r\n        \"instrumentId\": \"22\",\r\n        \"transactionType\": \"BUY\",\r\n        \"quantity\": 30,\r\n        \"product\": \"Intraday\",\r\n        \"orderComplexity\": \"BO\",\r\n        \"orderType\": \"SL\",\r\n        \"validity\": \"DAY\",\r\n        \"price\": \"1120.15\",\r\n        \"slLegPrice\": \"1110.00\",\r\n        \"targetLegPrice\": \"3333\",\r\n        \"slTriggerPrice\": \"11\",\r\n        \"disclosedQuantity\": \"\",\r\n        \"marketProtectionPercent\": \"\",\r\n        // \"deviceId\": \"123\",\r\n        \"trailingSlAmount\": \"\",\r\n        \"apiOrderSource\": \"\",\r\n        \"algoId\": \"\",\r\n         \"orderTag\":\"\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/placeorder",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"placeorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brokerOrderId\": \"25071700098620\",\r\n    \"quantity\": 1,\r\n    \"orderType\": \"MARKET\",\r\n    \"slTriggerPrice\": \"8.01\",\r\n    \"price\": \"8.03\",\r\n    \"slLegPrice\": \"\", //stoploss\r\n    \"trailingSLAmount\": \"\",\r\n    \"targetLegPrice\": \"\", //targetPrice\r\n    \"validity\": \"DAY\",\r\n    \"disclosedQuantity\": \"0\",\r\n    \"marketProtection\": \"\"\r\n    // \"deviceId\": \"320de4eb90d0526d6970ee063a4b7f8e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/modify",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"modify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/checkMargin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exchange\": \"NSE\",\r\n    \"instrumentId\": \"8479\",\r\n    \"transactionType\": \"BUY\",\r\n    \"quantity\": 1,\r\n    \"product\": \"INTRADAY\",\r\n    \"orderComplexity\": \"Regular\",\r\n    \"orderType\": \"MARKET\",\r\n    \"price\": 2830.10,\r\n    \"validity\": \" day\", \r\n    \"slLegPrice\": \"1215\",\r\n    \"slTriggerPrice\": \"0\",\r\n    \"targetLegPrice\": \"\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/checkMargin",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"checkMargin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"brokerOrderId\": \"25071400027816\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/history",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/cancel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"brokerOrderId\": \"25062700120949\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/cancel",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/book",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/trades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/trades",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"trades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exit bractket order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"brokerOrderId\":\"25051400177494\",\r\n    \"orderComplexity\":\"BO\"\r\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/exit/sno",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"exit",
+								"sno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Basket Margin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NjY0OTYxMjksImlhdCI6MTc2MTMxMjEyOSwianRpIjoiN2RjYTM3YTktMmViNC00YzY3LWJmZTUtYmI2NmVlYWY0NzAwIiwiaXNzIjoiaHR0cHM6Ly9pZGFhcy5hbGljZWJsdWVvbmxpbmUuY29tL2lkYWFzL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZDg2NzQ2NWYtMWZiMS00YmY3LWIxZWItNWZkMmI2MWVlODE3IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiI1NjNkZjlhMS05MWY0LTRmYTctYjdmYS0yYmVhODljN2IxOGQiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIlJFU0VBUkNIX0FETUlOIiwiR1VFU1RfVVNFUiIsIkFDVElWRV9VU0VSIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUgb3BlbmlkIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVjYyI6Ijg1NDE0OSIsImNsaWVudFJvbGUiOlsiUkVTRUFSQ0hfQURNSU4iLCJHVUVTVF9VU0VSIiwiQUNUSVZFX1VTRVIiXSwibmFtZSI6IlNFTFZBUkFKIERJTkVTSEtVTUFSIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiODU0MTQ5IiwiZ2l2ZW5fbmFtZSI6IlNFTFZBUkFKIiwiZmFtaWx5X25hbWUiOiJESU5FU0hLVU1BUiJ9.Ol0pDRcKjYxKNBhS7lSixMUn0WtZb8cT0x__G-wQ9MXVwI5PlVmvCdGgeFKOFeuel-Zu5R-mF4KWWM6hQJJpdpaF9xW_FAHJytnt7_5_MxK8Hhf-ay9p7DWwpPDAthfD36anIKzO4__UCaRqRt14-GlfNxwDC5WA7u4gayNaNWh7jpVcIxFptUx83o9WzcDVs4kvGQ18aJ0JOe_ejHkKkD6pGMvfI6RO9uUle2j7hMVWbXIv-kJg823ZY9Ewq7ElLx2Z-hvhMCCb9SrqKdLFTagXD-nGpDzQ7WCPShJUCo3MQ3v9bhEj5REGvWkbtdHJ0PYR1cVfyon5SOZU1j6SBw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n    \"exchange\": \"NSE\",\r\n    \"tradingSymbol\": \"TCS-EQ\",\r\n    \"price\": \"3036.8\",\r\n    \"qty\": \"1\",\r\n    \"product\": \"MTF\",\r\n    \"priceType\": \"L\",\r\n    \"triggerPrice\": \"\",\r\n    \"transType\": \"B\"\r\n}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/basket/margin",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"basket",
+								"margin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GTT ORDERS",
+			"item": [
+				{
+					"name": "Gtt Orderbook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/gtt/orderbook",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"gtt",
+								"orderbook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GttOrder Cancel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brokerOrderId\": \"25061000000166\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/gtt/cancel",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"gtt",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gtt PlaceOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\r\n//     \"tradingSymbol\": \"TCS-EQ\",\r\n//     \"exchange\": \"NSE\",\r\n//     \"transactionType\": \"BUY\",\r\n//     \"orderType\": \"LIMIT\",\r\n//     \"product\": \"INTRADAY\",\r\n//     \"ret\": \"DAY\",\r\n//     \"qty\": \"60\",\r\n//     \"price\": 3599,\r\n//     \"orderComplexity\": \"REGULAR\",\r\n//     \"instrumentId\": \"11536\",\r\n//     \"gttType\": \"LTP_A_O\",\r\n//     \"gttValue\": \"3599\",\r\n//     \"validity\": \"GTT\"\r\n// }\r\n\r\n{\r\n    \"tradingSymbol\": \"SILVER25SEP25C100000\",\r\n    \"exchange\": \"MCX\",\r\n    \"transactionType\": \"SELL\",\r\n    \"orderType\": \"LIMIT\",\r\n    \"product\": \"INTRADAY\",\r\n    \"validity\": \"DAY\",\r\n    \"quantity\": \"30\",\r\n    \"price\": 100,\r\n    \"orderComplexity\": \"REGULAR\",\r\n    \"instrumentId\": \"460125\",\r\n    \"gttValue\": \"12\"   \r\n}\r\n\r\n// {\r\n//     \"tradingSymbol\": \"ABCAPITAL31JUL25C300\",\r\n//     \"exchange\": \"NFO\",\r\n//     \"transactionType\": \"BUY\",\r\n//     \"orderType\": \"LIMIT\",\r\n//     \"product\": \"INTRADAY\",\r\n//     \"ret\": \"DAY\",\r\n//     \"qty\": \"10\",\r\n//     \"price\": 100,\r\n//     \"orderComplexity\": \"REGULAR\",\r\n//     \"instrumentId\": \"35098\",\r\n//     \"gttType\": \"LTP_A_O\",\r\n//     \"gttValue\": \"12\",\r\n//     \"validity\": \"GTT\"   \r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/gtt/execute",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"gtt",
+								"execute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gtt Modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tradingSymbol\": \"SILVER25SEP25C100000\",\r\n    \"exchange\": \"MCX\",\r\n    \"orderType\": \"LIMIT\",\r\n    \"product\": \"INTRADAY\",\r\n    \"validity\": \"DAY\",\r\n    \"quantity\": \"30\",\r\n    \"price\": \"3590.00\",\r\n    \"orderComplexity\": \"REGULAR\",\r\n    \"instrumentId\": \"460125\",\r\n    \"gttValue\": \"12\",\r\n    \"brokerOrderId\": \"25082100000005\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/gtt/modify",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"gtt",
+								"modify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POSITIONS",
+			"item": [
+				{
+					"name": "positions/sqroff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n[\r\n {\r\n        \"instrumentId\": \"460125\",\r\n        \"exchange\": \"MCX\",\r\n        \"transactionType\": \"sell\",\r\n        \"quantity\":1,\r\n        \"orderComplexity\": \"Regular\",\r\n        \"product\": \"INTRADAY\",\r\n        \"orderType\": \"LIMIT\",\r\n        \"price\": \"130.60\",\r\n        \"validity\": \"DAY\",\r\n        \"slTriggerPrice\": \"\",\r\n        \"marketProtectionPercent\": \"\",\r\n        \"targetLegPrice\": \"\",\r\n        \"slLegPrice\":\"\", \r\n        \"trailingSlAmount\": \"\",\r\n        \"apiOrderSource\": \"WEB\",\r\n        \"algoId\": \"\",\t\r\n        \"disclosedQuantity\":\"\",\r\n        \"orderTag\":\"\"\r\n        // \"deviceId\":\"320de4eb90d0526d6970ee063a4b7f8e\"\r\n    } \r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/orders/positions/sqroff",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"orders",
+								"positions",
+								"sqroff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "position conversion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exchange\": \"MCX\",\r\n    \"validity\": \"DAY\",\r\n    \"prevProduct\": \"MIS\",\r\n    \"product\": \"CNC\",\r\n    \"quantity\": \"1\",\r\n    \"tradingSymbol\": \"SILVER25SEP25C100000\",\r\n    \"transactionType\": \"BUY\",\r\n    \"orderSource\": \"MOB\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/conversion",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"conversion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "positions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/positions",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"positions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HOLDINGS",
+			"item": [
+				{
+					"name": "holdings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/holdings/CNC",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"holdings",
+								"CNC"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LIMITS",
+			"item": [
+				{
+					"name": "limits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/limits/",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"limits",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROFILE",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Open_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/open-api/od/v1/profile/",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"open-api",
+								"od",
+								"v1",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Session",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Session",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OPTION CHAIN",
+			"item": [
+				{
+					"name": "GET underlying",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NjkyNDAxMzgsImlhdCI6MTc2NDA1NjEzOCwianRpIjoiOTE2Y2RlNWUtMWJmNy00ZmM0LTgxYTctZmFjNzY3MzVlYjJmIiwiaXNzIjoiaHR0cHM6Ly9pZGFhcy5hbGljZWJsdWVvbmxpbmUuY29tL2lkYWFzL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiM2UxMDRkN2ItZmQyNC00ZDRkLThmMDUtZWIyYWRlYWJhOTA4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiIxNDQ2NjJmZi03ZjNlLTQyYTgtOTAwZS0zNzA3YjYxYmIzNTgiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIkdVRVNUX1VTRVIiLCJBQ1RJVkVfVVNFUiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIG9wZW5pZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ1Y2MiOiIxNjE0OTg2IiwiY2xpZW50Um9sZSI6WyJHVUVTVF9VU0VSIiwiQUNUSVZFX1VTRVIiXSwibmFtZSI6IlZFRVJBU0FNWSBWSU5JVEhBIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiMTYxNDk4NiIsImdpdmVuX25hbWUiOiJWRUVSQVNBTVkgVklOSVRIQSJ9.FcF1gX4JB3hZX2zMkL9s1p3JweV2GbvU2dowSvRWMQ71ykz6G4Oj7toHfi2VaIA2yOjzDWhY4ZfoC9gapsQEsFk6vVWb4tlRTfPlac4Gaw2bqqU1BDZ0mloBpwKzqqNjETE4d84YFk9VGP_aqxQLQRkZTDHXt1yVBKb2dx7-RZvBCbb77S90AZFzZa1-F8rkiXA5lxuT5q1GqOIVwXwFY4vKyiDBb5FeZn3z5aIPZLNaK6zKtFQR9myxzLx40-x1c9vzxr3eccwe0SnmMJHXb7O2tgxCcei2Mmcuy80rU8-hLiEsitqEuexYGEZceyn0VuVbzRPuIWDyR6rqdg4GQQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exch\": \"nse_fo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/obrest/optionChain/getUnderlying",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"obrest",
+								"optionChain",
+								"getUnderlying"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get underlying expe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NjkyNDAxMzgsImlhdCI6MTc2NDA1NjEzOCwianRpIjoiOTE2Y2RlNWUtMWJmNy00ZmM0LTgxYTctZmFjNzY3MzVlYjJmIiwiaXNzIjoiaHR0cHM6Ly9pZGFhcy5hbGljZWJsdWVvbmxpbmUuY29tL2lkYWFzL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiM2UxMDRkN2ItZmQyNC00ZDRkLThmMDUtZWIyYWRlYWJhOTA4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiIxNDQ2NjJmZi03ZjNlLTQyYTgtOTAwZS0zNzA3YjYxYmIzNTgiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIkdVRVNUX1VTRVIiLCJBQ1RJVkVfVVNFUiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIG9wZW5pZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ1Y2MiOiIxNjE0OTg2IiwiY2xpZW50Um9sZSI6WyJHVUVTVF9VU0VSIiwiQUNUSVZFX1VTRVIiXSwibmFtZSI6IlZFRVJBU0FNWSBWSU5JVEhBIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiMTYxNDk4NiIsImdpdmVuX25hbWUiOiJWRUVSQVNBTVkgVklOSVRIQSJ9.FcF1gX4JB3hZX2zMkL9s1p3JweV2GbvU2dowSvRWMQ71ykz6G4Oj7toHfi2VaIA2yOjzDWhY4ZfoC9gapsQEsFk6vVWb4tlRTfPlac4Gaw2bqqU1BDZ0mloBpwKzqqNjETE4d84YFk9VGP_aqxQLQRkZTDHXt1yVBKb2dx7-RZvBCbb77S90AZFzZa1-F8rkiXA5lxuT5q1GqOIVwXwFY4vKyiDBb5FeZn3z5aIPZLNaK6zKtFQR9myxzLx40-x1c9vzxr3eccwe0SnmMJHXb7O2tgxCcei2Mmcuy80rU8-hLiEsitqEuexYGEZceyn0VuVbzRPuIWDyR6rqdg4GQQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"underlying\": \"NIFTY\",\r\n    \"exch\": \"nse_fo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/obrest/optionChain/getUnderlyingExp",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"obrest",
+								"optionChain",
+								"getUnderlyingExp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "option chain",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NjkyNDAxMzgsImlhdCI6MTc2NDA1NjEzOCwianRpIjoiOTE2Y2RlNWUtMWJmNy00ZmM0LTgxYTctZmFjNzY3MzVlYjJmIiwiaXNzIjoiaHR0cHM6Ly9pZGFhcy5hbGljZWJsdWVvbmxpbmUuY29tL2lkYWFzL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiM2UxMDRkN2ItZmQyNC00ZDRkLThmMDUtZWIyYWRlYWJhOTA4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiIxNDQ2NjJmZi03ZjNlLTQyYTgtOTAwZS0zNzA3YjYxYmIzNTgiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIkdVRVNUX1VTRVIiLCJBQ1RJVkVfVVNFUiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIG9wZW5pZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ1Y2MiOiIxNjE0OTg2IiwiY2xpZW50Um9sZSI6WyJHVUVTVF9VU0VSIiwiQUNUSVZFX1VTRVIiXSwibmFtZSI6IlZFRVJBU0FNWSBWSU5JVEhBIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiMTYxNDk4NiIsImdpdmVuX25hbWUiOiJWRUVSQVNBTVkgVklOSVRIQSJ9.FcF1gX4JB3hZX2zMkL9s1p3JweV2GbvU2dowSvRWMQ71ykz6G4Oj7toHfi2VaIA2yOjzDWhY4ZfoC9gapsQEsFk6vVWb4tlRTfPlac4Gaw2bqqU1BDZ0mloBpwKzqqNjETE4d84YFk9VGP_aqxQLQRkZTDHXt1yVBKb2dx7-RZvBCbb77S90AZFzZa1-F8rkiXA5lxuT5q1GqOIVwXwFY4vKyiDBb5FeZn3z5aIPZLNaK6zKtFQR9myxzLx40-x1c9vzxr3eccwe0SnmMJHXb7O2tgxCcei2Mmcuy80rU8-hLiEsitqEuexYGEZceyn0VuVbzRPuIWDyR6rqdg4GQQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"underlying\": \"NIFTY\",\r\n    \"expiry\": \"25NOV25\",\r\n    \"interval\": 10,\r\n    \"exch\": \"nse_fo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a3.aliceblueonline.com/obrest/optionChain/getOptionChain",
+							"protocol": "https",
+							"host": [
+								"a3",
+								"aliceblueonline",
+								"com"
+							],
+							"path": [
+								"obrest",
+								"optionChain",
+								"getOptionChain"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WEBSOCKET",
+			"item": [
+				{
+					"name": "createWsToken",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Open_token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NTQ5ODI5MDEsImlhdCI6MTc0OTc5ODkwMSwianRpIjoiNzllNDkxZmQtY2I1Mi00N2Q5LWI2MjUtZTczYmU2YzgwYzFmIiwiaXNzIjoiaHR0cHM6Ly9pZGFhc3VhdC5hbGljZWJsdWVvbmxpbmUuY29tL2Ftc3NvL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMjYzM2Y4ZGMtNzI2OS00NGExLWFjYjUtMjc2ZmExYWI0OGJjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiIwYWExNGUzOC1mNDIzLTQ3MmQtOGRlNC05Njc3OTZlOGYzOWYiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIlNVUEVSX0FETUlOIiwiUkVTRUFSQ0hfQURNSU4iLCJHVUVTVF9VU0VSIiwiQUNUSVZFX1VTRVIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgb3BlbmlkIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidWNjIjoiOTEyNDQ0IiwiY2xpZW50Um9sZSI6WyJTVVBFUl9BRE1JTiIsIlJFU0VBUkNIX0FETUlOIiwiR1VFU1RfVVNFUiIsIkFDVElWRV9VU0VSIl0sIm5hbWUiOiJTT01VIE1PTklTSCIsIm1vYmlsZSI6Ijk1NjY2MDgyODQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI5MTI0NDQiLCJnaXZlbl9uYW1lIjoiU09NVSIsImZhbWlseV9uYW1lIjoiTU9OSVNIIiwiZW1haWwiOiJtb25pc2hAY29kaWZpLmluIn0.G2EdyGVOndLD-7j5IMw7_GCkt8GPkAjZat8Bz4sswkvxIL83mGxM1LyQw7tet_nxjuaR4TDQODCiCcPiNeon8wd5EO5mDFf67loSq_kxkDJaQWZ8LEFAvFne7UxIvIOpwVb0SXmzB2G7c9Aq5ykaUpu88QMQtyxarnpmXbVBd_ZqSSstqRnqlfdgEWly9KSigE_MfRZJOHhSM94iwqpbShDcso39LSD4LpqhUb-rG6jqd08YUJPgRpEDiv7JIJiRc3ktQuwh9SnatUDJZlw0p8zCDiuUkarjcYSjVCMiH4xopsfqpnZKCrlmYlDRh0780FWp6X00AtYvpLa0X-_EWg",
+			"type": "default"
+		}
+	]
+}

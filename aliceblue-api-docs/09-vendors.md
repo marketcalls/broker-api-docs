@@ -27,4 +27,7 @@ To register as a Vendor, Please visit [https://a3.aliceblueonline.com/](https://
 
 ### Postman Sample
 
-[Download](https://v2api.aliceblueonline.com/PDF/vendor%20.json)
+[Download](https://v2api.aliceblueonline.com/PDF/vendor%20.json) — this upstream link is
+broken (it returns the docs homepage, not a collection). Use the full collection at
+[`postman/Aliceblue_Postman_Collection.json`](postman/Aliceblue_Postman_Collection.json)
+instead; its AUTH USER SESSION folder covers the vendor SSO call.

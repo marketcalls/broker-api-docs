@@ -59,3 +59,30 @@
 3. Select the import file or Drag and drop the file in the box
 
 [Download](https://v2api.aliceblueonline.com/PDF/Aliceblue_Postman_Collection.json)
+
+A copy of that collection is vendored in this repo at
+[`postman/Aliceblue_Postman_Collection.json`](postman/Aliceblue_Postman_Collection.json).
+
+### What the collection covers
+
+Postman Collection v2.1.0, named `OPEN-API ALICEBLUE A3 Copy`, with 9 folders
+against the `https://a3.aliceblueonline.com` base URL:
+
+| Folder | Requests |
+| --- | --- |
+| AUTH USER SESSION | `POST /open-api/od/v1/vendor/getUserDetails` |
+| ORDERS | `placeorder`, `modify`, `cancel`, `history`, `book`, `trades`, `checkMargin`, `basket/margin`, `exit/sno` |
+| GTT ORDERS | `gtt/orderbook`, `gtt/execute`, `gtt/modify`, `gtt/cancel` |
+| POSITIONS | `positions`, `orders/positions/sqroff`, `conversion` |
+| HOLDINGS | `GET /open-api/od/v1/holdings/CNC` |
+| LIMITS | `GET /open-api/od/v1/limits/` |
+| PROFILE | `profile`, Create Session, Invalidate Session |
+| OPTION CHAIN | `obrest/optionChain/getUnderlying`, `getUnderlyingExp`, `getOptionChain` |
+| WEBSOCKET | `createWsToken` |
+
+The collection ships an `Open_token` collection variable holding a sample JWT.
+It is an **expired UAT token** (issuer `idaasuat.aliceblueonline.com`, expired
+August 2025) included verbatim by Aliceblue — not a live credential. Replace it
+with your own `userSession` before sending any request.
+
+[Download](https://v2api.aliceblueonline.com/PDF/Aliceblue_Postman_Collection.json)

@@ -33,6 +33,15 @@ Unofficial Markdown conversion of the official Aliceblue ANT API (v2) documentat
 https://a3.aliceblueonline.com
 ```
 
+## Postman collection
+
+[`postman/Aliceblue_Postman_Collection.json`](postman/Aliceblue_Postman_Collection.json)
+— vendored copy of the official collection linked from the Postman Scripts page
+(`OPEN-API ALICEBLUE A3 Copy`, Postman schema v2.1.0; 9 folders covering auth,
+orders, GTT, positions, holdings, limits, profile, option chain, and websocket).
+Import it into Postman via Import -> drag and drop. Its `Open_token` variable
+holds an expired UAT sample JWT; replace it with your own `userSession`.
+
 ## Notes
 
 - The BASE URL, endpoint paths, and payload JSON keys are **case-sensitive**. Use the exact format shown in the docs.
