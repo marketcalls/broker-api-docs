@@ -1,17 +1,17 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Historical%20Data/ -->
-
 # Historical Data
 
-Note
+> Source: https://v2api.aliceblueonline.com/Historical%20Data/
 
-The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
-
-1. Only Day and Minute data will be available. Other resolutions can be calculated on their own, based user preferences using these resolutions.
-2. Historical data API will be available from 5:30 PM (evening) to 8 AM (Next day morning) on weekdays (Monday to Friday). Historical data will not be available during market hours
-3. Historical data API will be available fully during weekends and holidays.
-4. For NSE segment, 2 years of historical data will be provided.
-5. For NFO, CDS and MCX segments, current expiry data will be provided.
-6. BSE, BCD and BFO Chart data will be added later.
+> **Note**
+>
+> The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
+>
+> 1. Only Day and Minute data will be available. Other resolutions can be calculated on their own, based user preferences using these resolutions.
+> 2. Historical data API will be available from 5:30 PM (evening) to 8 AM (Next day morning) on weekdays (Monday to Friday). Historical data will not be available during market hours
+> 3. Historical data API will be available fully during weekends and holidays.
+> 4. For NSE segment, 2 years of historical data will be provided.
+> 5. For NFO, CDS and MCX segments, current expiry data will be provided.
+> 6. BSE, BCD and BFO Chart data will be added later.
 
 | Method | APIS |
 | --- | --- |
@@ -19,11 +19,11 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Request Structure**
 
-```
+```json
   {
   "token": "1594",
-  "resolution": "D", 
-  "from": "1660128489000", 
+  "resolution": "D",
+  "from": "1660128489000",
   "to": "1660221861000",
   "exchange": "NSE"
   }
@@ -44,7 +44,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 | Field | TYPE | Description |
 | --- | --- | --- |
 | stat | String | Ok |
-| result | String | JSON Array Containing JSON Object key value pairs of open, high, low, close, volume, and time. <br>`Open`: Open price <br>`High`: High price <br>`Low`: Low price <br>`Close`: Close price <br>`Volume`: Trade volume <br>`Time`: Data captured time (YYYY-MM-DD HHss) |
+| result | String | JSON Array Containing JSON Object key value pairs of open, high, low, close, volume, and time.  `Open`: Open price  `High`: High price  `Low`: Low price  `Close`: Close price  `Volume`: Trade volume  `Time`: Data captured time (YYYY-MM-DD HH🇲🇲ss) |
 
 ## Error Response
 

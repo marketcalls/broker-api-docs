@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Websocket/ -->
-
 # Web Socket Connection for Vendors
+
+> Source: https://v2api.aliceblueonline.com/Websocket/
 
 ## Introduction
 
@@ -20,16 +20,16 @@ This endpoint allows clients to invalidate an existing WebSocket session. Upon s
 
 Parameters are as below (Payload). Use JSON content type
 
-```
+```json
 {
     "source": "API",
     "userId": "1614986"
-}          
+}
 ```
 
 **Response from Rest API**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -54,16 +54,16 @@ Create a new session using REST API.
 
 Parameters are as below (Payload). Use JSON content type
 
-```
+```json
  {
     "source": "API",
     "userId": "1614986"
-}          
+}
 ```
 
 **Response from Rest API**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -86,7 +86,7 @@ User has to generate SHA-256 encrypted key of User's Session Id 2 times for suse
 
 **Request**
 
-```
+```json
     {
         "susertoken": sha256_encryption( sha256_encryption(session_id)),
         "t": "c",
@@ -96,13 +96,11 @@ User has to generate SHA-256 encrypted key of User's Session Id 2 times for suse
     }
 ```
 
-Subscribe
-
-- {"k":"NSE|26000#NSE|26009#CDS|5596#NSE|13#NSE|11536#NSE|26037","t":"t"}
+**Subscribe** - {"k":"NSE|26000#NSE|26009#CDS|5596#NSE|13#NSE|11536#NSE|26037","t":"t"}
 
 **Response from WS**
 
-```
+```json
     {"t":"cf","k":"OK"}
 
     If validation fails, response will show as its failed
@@ -116,14 +114,14 @@ The Sending heartbeat through web socket is a way to inform server the client is
 
 **Request**
 
-```
+```json
     {
         "k": "",
         "t": "h"
     }
 
-    k = Send this as empty for heartbeat request 
-    t = Type of request, 'h' stands for Heartbeat 
+    k = Send this as empty for heartbeat request
+    t = Type of request, 'h' stands for Heartbeat
 ```
 
 **Send heartbeat once in every 50 seconds.**
@@ -134,7 +132,7 @@ This will NOT provide any response. Just accepting the message is the indication
 
 **Request**
 
-```
+```json
     {"k":"NFO|54957#MCX|239484","t":"t"}
 
     t = Type of request, t for tick data
@@ -142,9 +140,9 @@ This will NOT provide any response. Just accepting the message is the indication
     exchange should be separated with #
 ```
 
-Acknowledgement Response
+**Acknowledgement Response**
 
-```
+```json
     {"t":"tk","pp":"2","ml":"1","e":"NFO","tk":"54957","ts":"NIFTY28JUL22C16600","ls":"50","ti":"0.05","c":
     42.20","lp":"84.00","pc":"99.05","ft":"1658911102","oi":"7606750","o":"37.65","h":"98.00","l":"22.0
     0","ap":"61.35","v":"129781850","bp1":"84.00","sp1":"84.20","bq1":"1000","sq1":"300"}
@@ -156,7 +154,7 @@ Acknowledgement Response
 
 **Feed Response**
 
-```
+```json
     {"t":"tf","e":"NFO","tk":"54957","lp":"84.20","pc":"99.53","ft":"1658911102"}
 
     {"t":"tf","e":"NFO","tk":"54957","lp":"84.35","pc":"99.88","ft":"1658911103","v":"129787100","bp1":"
@@ -187,7 +185,7 @@ This table provides the descriptions for various abbreviations used in the docum
 
 **Request**
 
-```
+```json
     {"k":"NFO|54957#MCX|239484","t":"u"}
 
     t = Type of request, u for Un-subscription
@@ -195,7 +193,7 @@ This table provides the descriptions for various abbreviations used in the docum
     exchange should be separated with #
 ```
 
-Response
+**Response**
 
 ```
 No response will be coming for this. Unsubscribed tokens will no longer receive feed
@@ -205,7 +203,7 @@ No response will be coming for this. Unsubscribed tokens will no longer receive 
 
 **Request**
 
-```
+```json
     {"k":"NFO|54957#MCX|239484","t":"d"}
 
     t = Type of request, t for tick data
@@ -213,9 +211,9 @@ No response will be coming for this. Unsubscribed tokens will no longer receive 
     exchange should be separated with #
 ```
 
-Acknowledgement Response
+**Acknowledgement Response**
 
-```
+```json
     {"t":"dk","pp":"2","ml":"1","e":"NFO","tk":"54957","ts":"NIFTY28JUL22C16600","ls":"50","ti":"0.05","c":"42.20","lp":"76.40",
     "pc":"81.04","uc":"469.90","lc":"0.05","ft":"1658910517","oi
     ":"7361100","ltq":"50","o":"37.65","h":"98.00","l":"22.00","ap":"60.72","v":"125888500","ltt":"13:58:37","tbq":"965400","ts
@@ -235,7 +233,7 @@ Acknowledgement Response
 
 **Feed Response**
 
-```
+```json
     {"t":"df","e":"NFO","tk":"54957","lp":"76.55","pc":"81.40","ft":"1658910520","ltq":"200"}
 
     {"t":"df","e":"MCX","tk":"239484","ft":"1658910519","tsq":"117","sq1":"3","so1":"1"}
@@ -276,7 +274,7 @@ Acknowledgement Response
 
 **Request**
 
-```
+```json
     {"k":"NFO|54957#MCX|239484","t":"ud"}
 
     t = Type of request, ud for Un-subscription
@@ -284,7 +282,7 @@ Acknowledgement Response
     exchange should be separated with #
 ```
 
-Response
+**Response**
 
 ```
 No response will be coming for this. Unsubscribed tokens will no longer receive feed

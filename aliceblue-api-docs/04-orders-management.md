@@ -1,10 +1,10 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/orders%20Management/ -->
-
 # Orders
 
-Note
+> Source: https://v2api.aliceblueonline.com/orders%20Management/
 
-The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
+> **Note**
+>
+> The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
 
 | Type | APIs | Details |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Request Structure**
 
-```
+```json
 [
     {
         "exchange": "NSE",
@@ -53,13 +53,13 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 | Field | Type | Criticality | Description |
 | --- | --- | --- | --- |
 | instrumentId | String | Required | Unique identifier assigned to the specific instrument being traded. |
-| exchange | String | Required | [Code representing the exchange where the trade is executed.](../Appendix/#exchange) |
-| transactionType | String | Required | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](../Appendix/#transaction-type) |
+| exchange | String | Required | [Code representing the exchange where the trade is executed.](16-appendix.md#exchange) |
+| transactionType | String | Required | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](16-appendix.md#transaction-type) |
 | quantity | Int | Required | Quantity of the instrument to be traded. |
-| orderComplexity | String | Required | [Complexity level of the order (e.g., REGULAR, AMO).](../Appendix/#order-complexity) |
-| product | String | Required | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](../Appendix/#product-type) |
-| orderType | String | Required | [Price type: Limit, Market, SL, SLM.](../Appendix/#order-type) |
-| validity | String | Required | [Validity period of the order (e.g., DAY, IOC).](../Appendix/#validity) |
+| orderComplexity | String | Required | [Complexity level of the order (e.g., REGULAR, AMO).](16-appendix.md#order-complexity) |
+| product | String | Required | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](16-appendix.md#product-type) |
+| orderType | String | Required | [Price type: Limit, Market, SL, SLM.](16-appendix.md#order-type) |
+| validity | String | Required | [Validity period of the order (e.g., DAY, IOC).](16-appendix.md#validity) |
 | price | String | Conditionally Required | Price specified for the trade; may be ignored for market orders. |
 | slTriggerPrice | String | Conditionally Required | Trigger price for stop-loss orders. |
 | trailingSlAmount | String | Optional | Amount by which the stop-loss will trail the market price. |
@@ -74,7 +74,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -98,7 +98,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -150,20 +150,20 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 | clientId | String | UCC client ID. |
 | placedBy | String | Dealer/Client code who placed the order. |
 | brokerOrderId | String | Unique ID assigned to the order by the broker. |
-| exchange | String | [Exchange and segment (e.g., NSE,BSE).](../Appendix/#exchange) |
+| exchange | String | [Exchange and segment (e.g., NSE,BSE).](16-appendix.md#exchange) |
 | exchangeOrderId | String | Unique ID assigned to the order by the exchange. |
 | formattedInstrumentName | String | Full name of the instrument. |
 | tradingSymbol | String | Trading symbol of the instrument. |
 | instrumentId | String | Unique identifier or scrip code of the instrument. |
-| transactionType | String | [Type of transaction:Buy or Sell.](../Appendix/#transaction-type) |
+| transactionType | String | [Type of transaction:Buy or Sell.](16-appendix.md#transaction-type) |
 | quantity | Int | Total quantity for the order. |
-| product | String | [Product type (e.g., INTRADAY, LONGTERM).](../Appendix/#product-type) |
-| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](../Appendix/#order-complexity) |
-| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](../Appendix/#order-type) |
+| product | String | [Product type (e.g., INTRADAY, LONGTERM).](16-appendix.md#product-type) |
+| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](16-appendix.md#order-complexity) |
+| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](16-appendix.md#order-type) |
 | price | Float | Limit price entered by the client. |
 | averageTradedPrice | Float | Weighted average price of matched trades. |
 | slTriggerPrice | Float | Stop Loss trigger price. |
-| validity | String | [Order validity duration (e.g., DAY, IOC).](../Appendix/#validity) |
+| validity | String | [Order validity duration (e.g., DAY, IOC).](16-appendix.md#validity) |
 | disclosedQuantity | Int | Quantity to be disclosed in market feed. |
 | orderTime | DateTime | Date and time when the order was initially placed on the exchange or by the client. |
 | exchangeUpdateTime | DateTime | Time when the latest update for this order came from exchange. |
@@ -186,7 +186,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Request Structure**
 
-```
+```json
 {
     "brokerOrderId": "250526000002881"
 }
@@ -200,7 +200,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -252,20 +252,20 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 | clientId | String | UCC client ID. |
 | placedBy | String | Dealer/Client code who placed the order. |
 | brokerOrderId | String | Unique ID assigned to the order by the broker. |
-| exchange | String | [Exchange and segment (e.g., NSE,BSE).](../Appendix/#exchange) |
+| exchange | String | [Exchange and segment (e.g., NSE,BSE).](16-appendix.md#exchange) |
 | exchangeOrderId | String | Unique ID assigned to the order by the exchange. |
 | formattedInstrumentName | String | Full name of the instrument. |
 | tradingSymbol | String | Trading symbol of the instrument. |
 | instrumentId | String | Unique identifier or scrip code of the instrument. |
-| transactionType | String | [Type of transaction:Buy or Sell.](../Appendix/#transaction-type) |
+| transactionType | String | [Type of transaction:Buy or Sell.](16-appendix.md#transaction-type) |
 | quantity | Int | Total quantity for the order. |
-| product | String | [Product type (e.g., INTRADAY, LONGTERM).](../Appendix/#product-type) |
-| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](../Appendix/#order-complexity) |
-| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](../Appendix/#order-type) |
+| product | String | [Product type (e.g., INTRADAY, LONGTERM).](16-appendix.md#product-type) |
+| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](16-appendix.md#order-complexity) |
+| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](16-appendix.md#order-type) |
 | price | Float | Limit price entered by the client. |
 | averageTradedPrice | Float | Weighted average price of matched trades. |
 | slTriggerPrice | Float | Stop Loss trigger price. |
-| validity | String | [Order validity duration (e.g., DAY, IOC).](../Appendix/#validity) |
+| validity | String | [Order validity duration (e.g., DAY, IOC).](16-appendix.md#validity) |
 | disclosedQuantity | Int | Quantity to be disclosed in market feed. |
 | orderTime | DateTime | Date and time when the order was initially placed on the exchange or by the client. |
 | exchangeUpdateTime | DateTime | Time when the latest update for this order came from exchange. |
@@ -288,7 +288,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Request Structure**
 
-```
+```json
 {
     "brokerOrderId": "25061300124513",
     "quantity": 3,
@@ -311,10 +311,10 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 | --- | --- | --- | --- |
 | brokerOrderId | String | Required | Unique ID assigned to the order by the broker. |
 | quantity | Int | Optional | Quantity of the instrument specified in the order. |
-| orderType | String | Optional | [Order pricing type: LIMIT, MARKET, SL, SLM.](../Appendix/#order-type) |
+| orderType | String | Optional | [Order pricing type: LIMIT, MARKET, SL, SLM.](16-appendix.md#order-type) |
 | price | String | Conditionally Required | Price at which the order is intended to execute, if applicable. |
 | slTriggerPrice | String | Conditionally Required | Price at which a conditional order triggers, used for stop orders. |
-| validity | String | Optional | [Order validity duration (e.g., DAY, IOC).](../Appendix/#validity) |
+| validity | String | Optional | [Order validity duration (e.g., DAY, IOC).](16-appendix.md#validity) |
 | disclosedQuantity | String | Optional | Quantity disclosed to the market for transparency, if different from the full quantity. |
 | marketProtectionPercent | String | Optional | Market protection setting to reduce impact on price movement; may be blank if unused. |
 | trailingSLAmount | String | Optional | Amount by which SL price trails the market. |
@@ -324,7 +324,7 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -348,13 +348,13 @@ The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please u
 
 **Request Structure**
 
-```
+```json
 {
     "brokerOrderId":"250526000002881"
 }
 ```
 
-Input Parameters
+**Input Parameters**
 
 | Field | Type | Description |
 | --- | --- | --- |
@@ -362,7 +362,7 @@ Input Parameters
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -386,7 +386,7 @@ Input Parameters
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -429,12 +429,12 @@ Input Parameters
 | formattedInstrumentName | String | Full name of the instrument. |
 | tradingSymbol | String | Trading symbol of the instrument. |
 | instrumentId | String | Unique identifier or scrip code of the instrument. |
-| exchange | String | [Exchange and segment (e.g., NSE,BSE).](../Appendix/#exchange) |
-| transactionType | String | [Type of transaction:Buy or Sell.](../Appendix/#transaction-type) |
-| product | String | [Product type (e.g., INTRADAY, LONGTERM).](../Appendix/#product-type) |
-| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](../Appendix/#order-complexity) |
-| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](../Appendix/#order-type) |
-| validity | String | [Order validity duration (e.g., DAY, IOC).](../Appendix/#validity) |
+| exchange | String | [Exchange and segment (e.g., NSE,BSE).](16-appendix.md#exchange) |
+| transactionType | String | [Type of transaction:Buy or Sell.](16-appendix.md#transaction-type) |
+| product | String | [Product type (e.g., INTRADAY, LONGTERM).](16-appendix.md#product-type) |
+| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](16-appendix.md#order-complexity) |
+| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](16-appendix.md#order-type) |
+| validity | String | [Order validity duration (e.g., DAY, IOC).](16-appendix.md#validity) |
 | tradedPrice | Number | Weighted average price of matched trades. |
 | filledQuantity | Number | Quantity of the order that has been filled. |
 | orderTime | DateTime | Date and time when the order was initially placed on the exchange or by the client. |
@@ -446,7 +446,7 @@ Input Parameters
 
 **Request Structure**
 
-```
+```json
 {
 "exchange": "NSEEQ",
 "instrumentId": "22",
@@ -465,20 +465,20 @@ Input Parameters
 
 | Field | Type | Description |
 | --- | --- | --- |
-| exchange | String | [Exchange and segment (e.g., NSE,BSE).](../Appendix/#exchange) |
+| exchange | String | [Exchange and segment (e.g., NSE,BSE).](16-appendix.md#exchange) |
 | instrumentId | String | Unique identifier or scrip code of the instrument. |
-| transactionType | String | [Type of transaction:Buy or Sell.](../Appendix/#transaction-type) |
+| transactionType | String | [Type of transaction:Buy or Sell.](16-appendix.md#transaction-type) |
 | quantity | Number | Total quantity for the order. |
-| product | String | [Product type (e.g., INTRADAY, LONGTERM).](../Appendix/#product-type) |
-| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](../Appendix/#order-complexity) |
-| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](../Appendix/#order-type) |
+| product | String | [Product type (e.g., INTRADAY, LONGTERM).](16-appendix.md#product-type) |
+| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](16-appendix.md#order-complexity) |
+| orderType | String | [Order pricing type: LIMIT, MARKET, SL, SLM.](16-appendix.md#order-type) |
 | price | Number | Limit price entered by the client. |
-| validity | String | [Order validity duration (e.g., DAY, IOC).](../Appendix/#validity) |
+| validity | String | [Order validity duration (e.g., DAY, IOC).](16-appendix.md#validity) |
 | slTriggerPrice | String | Trigger price for stop-loss orders. |
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -512,7 +512,7 @@ Input Parameters
 
 **Request Structure**
 
-```
+```json
 [{
     "exchange": "NSE",
     "tradingSymbol": "TCS-EQ",
@@ -530,18 +530,18 @@ Input Parameters
 
 | Field | Type | Description |
 | --- | --- | --- |
-| exchange | String | [Exchange and segment (e.g., NSE,BSE).](../Appendix/#exchange) |
+| exchange | String | [Exchange and segment (e.g., NSE,BSE).](16-appendix.md#exchange) |
 | tradingSymbol | String | Unique identifier or scrip code of the instrument. |
-| transType | String | [Type of transaction:B or S.](../Appendix/#transaction-type) |
+| transType | String | [Type of transaction:B or S.](16-appendix.md#transaction-type) |
 | qty | Number | Total quantity for the order. |
-| product | String | [Product code (MIS or CO or CNC or BO or NRML).](../Appendix/#product-type) |
-| priceType | String | [(L or MKT or SL or SL-M).](../Appendix/#order-type) |
+| product | String | [Product code (MIS or CO or CNC or BO or NRML).](16-appendix.md#product-type) |
+| priceType | String | [(L or MKT or SL or SL-M).](16-appendix.md#order-type) |
 | price | Number | Limit price entered by the client. |
 | triggerPrice | String | Trigger price for stop-loss orders. |
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -575,7 +575,7 @@ Input Parameters
 
 **Request Structure**
 
-```
+```json
 [
     {
         "orderNo": "25051400177494",
@@ -589,11 +589,11 @@ Input Parameters
 | Field | Type | Description |
 | --- | --- | --- |
 | brokerOrderId | String | Broker orderId is defined as Unique number it can be generated while placing the order. |
-| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](../Appendix/#order-complexity) |
+| orderComplexity | String | [Type of order: REGULAR, AMO, etc.](16-appendix.md#order-complexity) |
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",

@@ -1,33 +1,34 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Authentication/ -->
-
 # Authentication
 
-Note
+> Source: https://v2api.aliceblueonline.com/Authentication/
 
-The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
+> **Note**
+>
+> The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
 
 ## Get Session
 
 1. During user login, the Individual Trader should redirect the Aliceblue user to
- `https://ant.aliceblueonline.com/?appcode=` along with the **App Code** in the URL.
+   `https://ant.aliceblueonline.com/?appcode=` along with the **App Code** in the URL.
 2. The user will be asked to log in with their Aliceblue credentials.
 3. After successful login, the user will be redirected to the **Redirect URL** provided by the Individual Trader
- (this can be configured or updated from the Developer Portal), along with:
-  - authCode – User Authorization Token
-  - userId – Aliceblue User ID
+   (this can be configured or updated from the Developer Portal), along with:
+
+   - `authCode` – User Authorization Token
+   - `userId` – Aliceblue User ID
 4. The Individual Trader must save the `authCode` and `userId`, and use them with the `apiSecret` to create a **checksum**. This is the **SHA-256 hash** of: userId + authCode + apiSecret
 5. The Individual Trader should then send this checksum to the following URL to obtain a **user session**:
- `https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails`
+   `https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails`
 
 The returned `userSession` can then be used to access all further API endpoints.
 
 | Method | APIS |
 | --- | --- |
-| Post | [https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails](https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails) |
+| Post | <https://a3.aliceblueonline.com/open-api/od/v1/vendor/getUserDetails> |
 
 **Request Structure**
 
-```
+```json
 {
     "checkSum":"99e9b517d1fb6012e7b105db2333151f72cd9469746d977da4def08cabftyhj533"
 }
@@ -41,7 +42,7 @@ The returned `userSession` can then be used to access all further API endpoints.
 
 **Success Response**
 
-```
+```json
 {
     "stat": "Ok",
     "clientId": "912444",
@@ -57,7 +58,7 @@ The returned `userSession` can then be used to access all further API endpoints.
 
 **Error Response**
 
-```
+```json
 {
     "stat": "Not_ok",
     "emsg": "Invalid auth code"
@@ -67,4 +68,4 @@ The returned `userSession` can then be used to access all further API endpoints.
 | Field | TYPE | Description |
 | --- | --- | --- |
 | stat | String | Not_Ok |
-| emsg | String | * User does not login. Please login<br>* Your API key Expired.Please update your API key<br>* API key not available.Please generate API key<br> * Internal server error. Please try again later. |
+| emsg | String | * User does not login. Please login * Your API key Expired.Please update your API key * API key not available.Please generate API key  * Internal server error. Please try again later. |

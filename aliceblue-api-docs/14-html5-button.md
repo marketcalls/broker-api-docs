@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/HTML%205%20Button/ -->
-
 # HTML 5 Buttons
+
+> Source: https://v2api.aliceblueonline.com/HTML%205%20Button/
 
 The ANT Publisher Javascript plugin lets you add one-click trade buttons to your webpage. Provide some basic data while creating an ANT HTML5 Button and add the button to your desired web page or portal. Users can place hassle free orders with single click using AliceBlue ant web portal.
 
@@ -8,11 +8,11 @@ The ANT Publisher Javascript plugin lets you add one-click trade buttons to your
 
 In the webpage or portal where the buttons are placed, make sure to add the following JavaScript file. Also users require an valid appcode (used in the button properties) to create these trade buttons. If the app code is not valid, the users will not be able to place the order.
 
-`<script  src="https://ant.aliceblueonline.com/jspublisher/publisher.js"></script>`
+`<script src="https://ant.aliceblueonline.com/jspublisher/publisher.js"></script>`
 
 HTML Buttons work with a valid App Code (Used as appcode). To create appcode visit this link [https://developers.aliceblueonline.com.](https://developers.aliceblueonline.com) You can use your regular Aliceblue account credentials to login and create the app code.
 
-The documentation on how to use the developer console can be found at [Developer's Console Documentation](../Vendors/)
+The documentation on how to use the developer console can be found at [Developer's Console Documentation](09-vendors.md)
 
 Also, symbol tokens provided by exchange is also mandatory. Various tokens for all symbols across exchanges can be downloaded from the following link Contract Master Data
 
@@ -72,7 +72,7 @@ Trade
 </t5-button>
 ```
 
-Example:
+**Example:**
 
 Sell a single share of SBIN
 
@@ -95,7 +95,7 @@ The :data-basket attribute value binded with basket
 list variable.
 ```
 
-Example:
+**Example:**
 
 Place the Basket of Orders
 
@@ -147,7 +147,7 @@ Buy
 </button>
 ```
 
-Example:
+**Example:**
 
 Sell a single share of SBIN
 
@@ -211,8 +211,6 @@ Example Basket value:
 **Example:**
 
 Place the Basket of Orders
-
-var basketList = [ { token: "3045", exchange: "NSE", tradingSymbol: "SBIN-EQ", instrument: "SBIN", transactionType: "BUY", orderType: "MKT", price: 0, quantity: 1, validity: "DAY", product: "MIS", complexity: "regular", }, { token: "1594", exchange: "NSE", tradingSymbol: "INFY-EQ", instrument: "INFY", transactionType: "SELL", orderType: "L", price: "1450", quantity: 1, validity: "DAY", product: "MIS", complexity: "regular", }, ]; document.addEventListener("DOMContentLoaded", function() { let btnSend = document.querySelector('#btnSend'); if (btnSend) { btnSend.setAttribute('data-basket', JSON.stringify(basketList)); } });
 
 Trade
 

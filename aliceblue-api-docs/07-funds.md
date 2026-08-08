@@ -1,8 +1,8 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Funds/ -->
+> Source: https://v2api.aliceblueonline.com/Funds/
 
-Note
-
-The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
+> **Note**
+>
+> The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
 
 # Funds
 
@@ -16,7 +16,7 @@ Get all information of your trading account like balance, margin utilised, colla
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",

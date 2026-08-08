@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Vendors/ -->
-
 # Vendors API
+
+> Source: https://v2api.aliceblueonline.com/Vendors/
 
 ### Introduction
 
@@ -8,7 +8,7 @@ The vendor API is an innovative solution provided by Aliceblue APIs. Vendor APIs
 
 ### Registration as a Vendor
 
-To register as a Vendor, Please visit [https://a3.aliceblueonline.com/](https:/a3.aliceblueonline.com/)
+To register as a Vendor, Please visit [https://a3.aliceblueonline.com/](https://a3.aliceblueonline.com/)
 
 - Login using your Aliceblue credentials.
 - In the Apps sections, Create a new application.
@@ -19,12 +19,12 @@ To register as a Vendor, Please visit [https://a3.aliceblueonline.com/](https:/a
 
 ### Implementation of SSO
 
-- During User login, the Vendor should redirect the Aliceblue user to https://ant.aliceblueonline.com/?appcode=.along with the App Code as shown here in the url.
+- During User login, the Vendor should redirect the Aliceblue user to <https://ant.aliceblueonline.com/?appcode=>.along with the App Code as shown here in the url.
 - User will be asked to login with their Aliceblue credentials.
-- After sucessful login, the user will be redirected to the URL provided by the Vendor (Provisions to provide / update the Redirect URL is provided in the Developers Login) along with User Authorization token (authCode) and User ID (userId).
-- The Vendor will save the user authCode, UserId (userId) along with apiSecret to create a checkSum, which is the SHA-256 hash of userId + authCode + apiSecret
-- Vendor should send this checkSum to the URL : https://ant.aliceblueonline.com/rest/AliceBlueAPIService/sso/getUserDetails to get the User Session (userSession), which can be used to access all API end points.
+- After sucessful login, the user will be redirected to the URL provided by the Vendor (Provisions to provide / update the Redirect URL is provided in the Developers Login) along with User Authorization token **(authCode)** and User ID **(userId)**.
+- The Vendor will save the user authCode, UserId **(userId)** along with apiSecret to create a checkSum, which is the SHA-256 hash of **userId + authCode + apiSecret**
+- Vendor should send this checkSum to the URL : <https://ant.aliceblueonline.com/rest/AliceBlueAPIService/sso/getUserDetails> to get the User Session **(userSession)**, which can be used to access all API end points.
 
 ### Postman Sample
 
-[Download](../PDF/vendor .json)
+[Download](https://v2api.aliceblueonline.com/PDF/vendor%20.json)

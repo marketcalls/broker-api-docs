@@ -1,14 +1,14 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/portfolio/ -->
-
 # Portfolio
 
-Note
+> Source: https://v2api.aliceblueonline.com/portfolio/
 
-The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
+> **Note**
+>
+> The BASE URL, Endpoint, and Payload JSON key values are case-sensitive. Please use the format which we have given in the documentation.
 
 | Method | API | Detail |
 | --- | --- | --- |
-| GET | {{BASE_URL}}/open-api/od/v1/holdings/[productType](../Appendix/#holdings-product-type) | Retrieve the list of long-term equity holdings. Possible Values CNC or MTF |
+| GET | {{BASE_URL}}/open-api/od/v1/holdings/[productType](16-appendix.md#holdings-product-type) | Retrieve the list of long-term equity holdings. Possible Values CNC or MTF |
 | GET | {{BASE_URL}}/open-api/od/v1/positions | Retrieve the list of short-term positions. |
 | POST | {{BASE_URL}}/open-api/od/v1/orders/positions/sqroff | Close an open position by offsetting it with an opposite trade. |
 | POST | {{BASE_URL}}/open-api/od/v1/conversion | Conversion of positions. |
@@ -19,7 +19,7 @@ Holdings contain the long term equity Holdings of the customer. All the financia
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -75,7 +75,7 @@ Users can retrieve a list of all open positions for the day. This includes all F
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -118,8 +118,8 @@ Users can retrieve a list of all open positions for the day. This includes all F
 | instrumentId | String | Unique identifier of the traded instrument. |
 | tradingSymbol | String | Ticker symbol used for trading the instrument. |
 | formattedInstrumentName | String | Readable name of the instrument. |
-| exchange | String | [Code representing the exchange where the trade is executed.](../Appendix/#exchange) |
-| product | String | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](../Appendix/#product-type) |
+| exchange | String | [Code representing the exchange where the trade is executed.](16-appendix.md#exchange) |
+| product | String | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](16-appendix.md#product-type) |
 | netQuantity | Int | Total quantity currently held after netting buy and sell transactions. |
 | netAveragePrice | Float | Weighted average price of the net position. |
 | overnightQuantity | Int | Quantity carried forward from the previous trading day. |
@@ -147,7 +147,7 @@ Closing an open position by placing an opposite trade to realize profit or cut l
 
 **Request Structure**
 
-```
+```json
 [
   {
     "exchange": "NSE",
@@ -177,13 +177,13 @@ Closing an open position by placing an opposite trade to realize profit or cut l
 | Field | Type | Description |
 | --- | --- | --- |
 | instrumentId | String | Unique identifier assigned to the specific instrument being traded. |
-| exchange | String | [Code representing the exchange where the trade is executed.](../Appendix/#exchange) |
-| transactionType | String | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](../Appendix/#transaction-type) |
+| exchange | String | [Code representing the exchange where the trade is executed.](16-appendix.md#exchange) |
+| transactionType | String | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](16-appendix.md#transaction-type) |
 | quantity | Int | Quantity of the instrument to be traded. |
-| orderComplexity | String | [Complexity level of the order (e.g., REGULAR, AMO).](../Appendix/#order-complexity) |
-| product | String | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](../Appendix/#product-type) |
-| orderType | String | [Price type: Limit, Market, SL, SLM.](../Appendix/#order-type) |
-| validity | String | [Validity period of the order (e.g., DAY, IOC).](../Appendix/#validity) |
+| orderComplexity | String | [Complexity level of the order (e.g., REGULAR, AMO).](16-appendix.md#order-complexity) |
+| product | String | [Product category of the trade (e.g., INTRADAY, LONGTERM, MTF).](16-appendix.md#product-type) |
+| orderType | String | [Price type: Limit, Market, SL, SLM.](16-appendix.md#order-type) |
+| validity | String | [Validity period of the order (e.g., DAY, IOC).](16-appendix.md#validity) |
 | price | String | Price specified for the trade; may be ignored for market orders. |
 | slTriggerPrice | String | Trigger price for stop-loss orders. |
 | trailingSlAmount | String | Amount by which the stop-loss will trail the market price. |
@@ -195,7 +195,7 @@ Closing an open position by placing an opposite trade to realize profit or cut l
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -221,7 +221,7 @@ Convert a position from intraday to delivery or vice versa.
 
 **Request Structure**
 
-```
+```json
 {
     "exchange": "MCX",
     "validity": "DAY",
@@ -238,18 +238,18 @@ Convert a position from intraday to delivery or vice versa.
 
 | Field | Type | Description |
 | --- | --- | --- |
-| exchange | String | [Code representing the exchange where the trade is executed.](../Appendix/#exchange) |
-| validity | String | [Validity period of the order (e.g., DAY, IOC).](../Appendix/#validity) |
-| prevProduct | String | [Product category of the trade (e.g., MIS, CNC).](../Appendix/#product-type) |
-| product | String | [Product category of the trade (e.g., MIS, CNC).](../Appendix/#product-type) |
+| exchange | String | [Code representing the exchange where the trade is executed.](16-appendix.md#exchange) |
+| validity | String | [Validity period of the order (e.g., DAY, IOC).](16-appendix.md#validity) |
+| prevProduct | String | [Product category of the trade (e.g., MIS, CNC).](16-appendix.md#product-type) |
+| product | String | [Product category of the trade (e.g., MIS, CNC).](16-appendix.md#product-type) |
 | quantity | Int | Quantity of the instrument to be traded. |
 | tradingSymbol | String | Ticker symbol used for trading the instrument. |
-| transactionType | String | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](../Appendix/#transaction-type) |
+| transactionType | String | [Type of transaction, indicating whether the trade is a "BUY" or "SELL".](16-appendix.md#transaction-type) |
 | orderSource | String | Source identifier for API-based orders. |
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",

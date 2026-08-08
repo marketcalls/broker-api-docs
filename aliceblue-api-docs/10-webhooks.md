@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Webhooks/ -->
-
 # Order Status Updates
+
+> Source: https://v2api.aliceblueonline.com/Webhooks/
 
 ## Webhook Order Updates
 
@@ -16,7 +16,7 @@ To subscribe to our Order Update Webhook service and start receiving real-time n
 
 ### Sample Request
 
-```
+```json
 {
     "callbackUrl": "https://web.google.in.com/"
 }
@@ -30,7 +30,7 @@ To unsubscribe from our Order Update Webhook service and cease receiving notific
 
 ### Sample Request
 
-```
+```json
 {
     "callbackUrl": "https://web.google.in.com/"
 }
@@ -38,11 +38,11 @@ To unsubscribe from our Order Update Webhook service and cease receiving notific
 
 ### Sample Order Update
 
-```
+```json
 {
     "norenordno": "123456789",
-    "actid": "DEMO123", 
-    "exch": "NSE", 
+    "actid": "DEMO123",
+    "exch": "NSE",
     "tsym": "INFY-EQ",
     "qty": "1",
     "prc": "1594.00",
@@ -79,7 +79,7 @@ To unsubscribe from our Order Update Webhook service and cease receiving notific
 }
 ```
 
-Parameters
+**Parameters**
 
 | Field | TYPE | Description |
 | --- | --- | --- |
@@ -129,7 +129,7 @@ Authorization: Bearer
 
 **Response**
 
-```
+```json
 {
         "status": "Ok",
         "message": "200",
@@ -156,19 +156,19 @@ After successful connection send order token and user ID to subscribe.
 
 **Sample Payload:**
 
-```
-{ 
+```json
+{
 "orderToken": "<Order_Token>",
-"userId": "<User_ID>" 
+"userId": "<User_ID>"
 }
 ```
 
 **Response**
 
-```
-    { 
-        "status": "Ok" 
-    } 
+```json
+    {
+        "status": "Ok"
+    }
 ```
 
 Upon successful connection user with start receiving their order feeds.
@@ -182,9 +182,9 @@ Upon successful connection user with start receiving their order feeds.
 To maintain the WebSocket connection, clients must send a heartbeat message every minute.
 
 ```
-      Sample Payload: 
-          { 
-              "heartbeat": "h", 
+      Sample Payload:
+          {
+              "heartbeat": "h",
               "userId":"123456"
           }
 ```
@@ -199,31 +199,35 @@ Once connected, clients will receive real-time updates on their order status.
 
 **Sample Payload:**
 
-```
-{ 
-    "t": "om", 
+```json
+{
+    "t": "om",
     "norenordno": "24070600000744",
-    "uid": "1332014", 
-    "actid": "1332014", 
-    "qty": "1", 
-    "prc": "0.00", 
-    "pcode": "I", 
-    "remarks": "", 
-    "rejreason": "RED:Margin Shortfall:INR 28,030.64 Available:INR 29.36 for C-1332014 [ABFSFREEDOM]", 
-    "prctyp": "MKT", 
-    "ret": "DAY", 
-    "dscqty": "0", 
-    "trantype": "B", 
-    "exch": "NSE", 
-    "tsym": "MRF-EQ", 
-    "status": "REJECTED", 
-    "reporttype": "Rejected" 
+    "uid": "1332014",
+    "actid": "1332014",
+    "qty": "1",
+    "prc": "0.00",
+    "pcode": "I",
+    "remarks": "",
+    "rejreason": "RED:Margin Shortfall:INR 28,030.64 Available:INR 29.36 for C-1332014 [ABFSFREEDOM]",
+    "prctyp": "MKT",
+    "ret": "DAY",
+    "dscqty": "0",
+    "trantype": "B",
+    "exch": "NSE",
+    "tsym": "MRF-EQ",
+    "status": "REJECTED",
+    "reporttype": "Rejected"
 }
 ```
 
 **Summary:**
 
-1. Authenticate: Obtain the order_token by calling GET https://ant.aliceblueonline.com/order- notify/ws/createWsToken with a valid bearer token.
-2. Connect: Establish a WebSocket connection to wss://ant.aliceblueonline.com/order-notify/websocket and send orderToken and userId to subscribe.
+1. Authenticate: Obtain the `order_token` by calling `GET https://ant.aliceblueonline.com/order- notify/ws/createWsToken` with a valid bearer token.
+2. Connect: Establish a WebSocket connection to `wss://ant.aliceblueonline.com/order-notify/websocket` and send `orderToken` and `userId` to subscribe.
 3. Heartbeat: Send a heartbeat message every minute to keep the connection alive.
-4. Receive Updates: Listen for real-time order status updates. Additional Notes: Ensure your WebSocket client can handle reconnections in case of disconnections. Maintain the security of your bearer token and order token at all times. By following the steps outlined above, clients can successfully integrate with the Order Status Feed WebSocket API and receive timely updates on their orders.
+4. Receive Updates: Listen for real-time order status updates.
+   Additional Notes:
+   Ensure your WebSocket client can handle reconnections in case of disconnections.
+   Maintain the security of your bearer token and order token at all times.
+   By following the steps outlined above, clients can successfully integrate with the Order Status Feed WebSocket API and receive timely updates on their orders.

@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Option%20Chain/ -->
-
 # Option Chain
+
+> Source: https://v2api.aliceblueonline.com/Option%20Chain/
 
 | Type | APIs | Details |
 | --- | --- | --- |
@@ -12,10 +12,10 @@
 
 **Request Structure**
 
-```
-{ 
-  "exch": "nse_fo" 
-} 
+```json
+{
+  "exch": "nse_fo"
+}
 ```
 
 **Input parameters**
@@ -26,20 +26,20 @@
 
 **Response Structure**
 
-```
-{ 
-  "status": "Ok", 
-  "message": "Success", 
-  "result": [ 
-    { 
-      "list_underlying": [ 
-        "NIFTY", 
-        "BANKNIFTY", 
-        "FINNIFTY" 
-      ] 
-    } 
-] 
-} 
+```json
+{
+  "status": "Ok",
+  "message": "Success",
+  "result": [
+    {
+      "list_underlying": [
+        "NIFTY",
+        "BANKNIFTY",
+        "FINNIFTY"
+      ]
+    }
+]
+}
 ```
 
 **Response Parameters**
@@ -52,9 +52,9 @@
 
 **Request Structure**
 
-```
-{  
-"underlying": "NIFTY", 
+```json
+{
+"underlying": "NIFTY",
 "exch": "nse_fo"
 }
 ```
@@ -68,20 +68,20 @@
 
 **Response Structure**
 
-```
-{ 
-"status": "Ok", 
-"message": "Success", 
-"result": [ 
-            { 
-            "underlying": "NIFTY", 
-            "underlying_expiry": [ 
-                "04NOV25", 
-                "11NOV25" 
-                ] 
-            } 
-        ] 
-} 
+```json
+{
+"status": "Ok",
+"message": "Success",
+"result": [
+            {
+            "underlying": "NIFTY",
+            "underlying_expiry": [
+                "04NOV25",
+                "11NOV25"
+                ]
+            }
+        ]
+}
 ```
 
 **Response Parameters**
@@ -95,11 +95,11 @@
 
 **Request Structure**
 
-```
-{ 
-"underlying": "NIFTY", 
-"expiry": "04NOV25", 
-"interval": 10, 
+```json
+{
+"underlying": "NIFTY",
+"expiry": "04NOV25",
+"interval": 10,
 "exch": "nse_fo"
 }
 ```
@@ -115,38 +115,38 @@
 
 **Response Structure**
 
-```
-{ 
-  "status": "Ok", 
-  "message": "Success", 
-  "result": [ 
-    { 
-      "data": [ 
-        { 
-          "CE": { 
-            "forInsName": "EURUSD 26th NOV 1.1 CE", 
-            "gval": "0", 
-            "ltp": "0", 
-            "oi": "0", 
-            "pdc": "0.0775", 
-            "pdoi": "0.0000", 
-            "token": "4800", 
-            "tradingsymbol": "EURUSD26NOV25C1.1" 
-          }, 
-          "PE": { 
-            "forInsName": "EURUSD 26th NOV 1.1 PE", 
-            "gval": "0", 
-            "ltp": "0", 
-            "oi": "0", 
-            "pdc": "0.0028", 
-            "pdoi": "0.0000", 
-            "token": "4801", 
-            "tradingsymbol": "EURUSD26NOV25P1.1" 
-          } 
-        } 
-      ] 
-    } 
-  ] 
+```json
+{
+  "status": "Ok",
+  "message": "Success",
+  "result": [
+    {
+      "data": [
+        {
+          "CE": {
+            "forInsName": "EURUSD 26th NOV 1.1 CE",
+            "gval": "0",
+            "ltp": "0",
+            "oi": "0",
+            "pdc": "0.0775",
+            "pdoi": "0.0000",
+            "token": "4800",
+            "tradingsymbol": "EURUSD26NOV25C1.1"
+          },
+          "PE": {
+            "forInsName": "EURUSD 26th NOV 1.1 PE",
+            "gval": "0",
+            "ltp": "0",
+            "oi": "0",
+            "pdc": "0.0028",
+            "pdoi": "0.0000",
+            "token": "4801",
+            "tradingsymbol": "EURUSD26NOV25P1.1"
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 

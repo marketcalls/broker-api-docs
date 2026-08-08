@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/Profile/ -->
-
 # Profile
+
+> Source: https://v2api.aliceblueonline.com/Profile/
 
 | Type | Apis | Details |
 | --- | --- | --- |
@@ -12,7 +12,7 @@ While a successful token exchange returns the full user profile, it's possible t
 
 **Response Structure**
 
-```
+```json
 {
     "status": "Ok",
     "message": "Success",
@@ -60,6 +60,6 @@ While a successful token exchange returns the full user profile, it's possible t
 | isTotpEnabled | String | Indicates if TOTP (Time-based OTP) is enabled or not("Y" = Yes or "N" = No). |
 | isPoaProvided | String | Indicates if Power of Attorney (POA) documents are submitted or not("Y" = Yes or "N" = No). |
 | accountStatus | String | Current status of the trading account (e.g., Activated). |
-| exchanges | String | [Code representing the exchange where the trade is executed.](../Appendix/#exchange) |
+| exchanges | String | [Code representing the exchange where the trade is executed.](16-appendix.md#exchange) |
 | products | String | Types of products the client can trade in (e.g., LONGTERM, INTRADAY). |
 | orderComplexity | String | Supported order types the client can place (e.g., REGULAR, AMO). |

@@ -8,7 +8,7 @@ Each broker's docs live in their own folder, one Markdown file per section/page,
 
 | Broker | Folder | Source |
 | --- | --- | --- |
-| Aliceblue (ANT API) | [`aliceblue-api-docs/`](aliceblue-api-docs/) | https://ant.aliceblueonline.com/productdocumentation/ |
+| Aliceblue (ANT API v2) | [`aliceblue-api-docs/`](aliceblue-api-docs/) | https://v2api.aliceblueonline.com/ |
 | AngelOne (SmartAPI) | [`angelone-api-docs/`](angelone-api-docs/) | https://smartapi.angelone.in/docs |
 | Arrow Trade (REST API + Python SDK) | [`arrow-api-docs/`](arrow-api-docs/) | https://docs.arrow.trade/ |
 | Definedge Securities (INTEGRATE) | [`definedge-api-docs/`](definedge-api-docs/) | https://www.definedgesecurities.com/api-documentation/ |

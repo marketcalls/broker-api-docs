@@ -1,6 +1,6 @@
-﻿<!-- Source: https://ant.aliceblueonline.com/productdocumentation/ -->
-
 # Introduction
+
+> Source: https://v2api.aliceblueonline.com/
 
 Aliceblue ANT APIs is a collection of fast, high performing, low complexity and easy to understand trading APIs for you, the retail traders to build state of the art financial platforms which can be used for trading, investment, wealth generation, automation of trading strategies & execute algo based strategies.
 
@@ -17,15 +17,15 @@ Each API call is structured as below
 
 The BASE URL is the common url used as prefix for all API call.
 
-[https://a3.aliceblueonline.com]()
+https://a3.aliceblueonline.com
 
 ## User Registration
 
-To register as a Individual trader/Vendor, Please visit [[https://a3.aliceblueonline.com/](https://a3.aliceblueonline.com/)].
+To register as a Individual trader/Vendor, Please visit [<https://a3.aliceblueonline.com/>].
 
 1. Login as Individual trader/Vendor using your credentials.
 2. In the Apps sections, create a new application.
-3. Fill out the mandatory details; URL and Postback URL will be localhost.
+3. Fill out the mandatory details; URL and Postback URL will be `localhost`.
 4. Click "Save" to create a new app.
-5. An App Code (appCode) and API Secret (apiSecret) will be provided to the Individual Trader. This code is important and confidential. Do not share it with anyone outside your organization.
+5. An App Code (`appCode`) and API Secret (`apiSecret`) will be provided to the Individual Trader. This code is important and confidential. **Do not share it** with anyone outside your organization.
 6. The app will be activated by the Aliceblue Admin team after reviewing the details given by the Individual Trader. API access will be granted after necessary approval.
