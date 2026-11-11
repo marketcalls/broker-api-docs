@@ -1,4 +1,4 @@
-> Source: https://docs.sahi.com/api/v1/reference/authentication/ (via llms-full.txt), fetched 2026-10-29.
+> Source: https://docs.sahi.com/api/v1/reference/authentication/ (via llms-full.txt), fetched 2026-11-11.
 
 # Authentication
 
@@ -7,12 +7,16 @@ There is no OAuth redirect to build and no secret we hold on your behalf: you
 create an **API key** in your Sahi account, exchange it for a short-lived token,
 and send that token on every call.
 
+For a short walk-through of the dashboard, with videos, see the
+[Quick start](/quick-start/) in the Get started section.
+
 Three things have to be true before a token will work, and each has a section
-below. The key must exist with the scopes you need. You must have approved it
-for the current trading day. And requests that **place, modify, or cancel an
-order** must reach us from a **registered static IP**. The last two are exchange
-requirements rather than Sahi policy, and both are checked per request rather
-than once at onboarding.
+below. The key must exist with the scopes you need. The key must be approved
+for the current trading day: you approve a **Regular** key in the dashboard, and
+a **TOTP** key approves itself with an authenticator code at mint. And requests
+that **place, modify, or cancel an order** must reach us from a **registered
+static IP**. The last two are exchange requirements rather than Sahi policy, and
+both are checked per request rather than once at onboarding.
 
 Paths on this page are relative to two base URLs: the **auth** base URL, which
 serves `/api/v1/apikeys/token`, and the **API** base URL, which serves
@@ -26,7 +30,8 @@ asked to complete two-factor verification first: creating a credential that can
 place orders is not something a first-factor session can do. The same section is
 where you approve a key for the day and revoke it.
 
-Give the key a name and choose its scopes.
+Give the key a name, choose its [type](#choose-a-key-type) and choose its
+scopes.
 
 **Scopes are fixed for the life of the key.** A token minted from it can carry
 that set or a subset of it, never more. To trade under a different set, create a
@@ -55,6 +60,50 @@ against that, but revocation is terminal: a revoked key can never be reactivated
 merely stop it minting new tokens; every token already minted from it stops
 being accepted straight away, rather than running out its remaining life. That
 is the lever to pull if a secret leaks.
+
+### Choose a key type
+
+The type is fixed when you create the key. It decides how the key gets its
+daily approval.
+
+| | Regular | TOTP |
+|---|---|---|
+| Daily approval | You click **Approve** in the dashboard each trading day | The first correct authenticator code of the day approves the key |
+| Mint request | `key_id` and `secret` | `key_id`, `secret` and `totp` |
+| Setup | Name and scopes | Name and scopes, then scan a QR code and confirm one code |
+| Use it for | Strategies you start by hand each day | Strategies that run unattended, such as a scheduled bot |
+
+A TOTP key does not replace the secret. Every mint still needs the key id and
+the secret; the code only replaces the click on **Approve**.
+
+### Set up a TOTP key
+
+A TOTP code is a 6-digit number that an authenticator app or your own code
+calculates from a shared seed and the current time
+([RFC 6238](https://datatracker.ietf.org/doc/html/rfc6238)). The code changes
+every 30 seconds.
+
+1. Open the **API keys** section of your Sahi account and complete two-factor
+   verification.
+2. Select **TOTP** as the key type.
+3. Enter a name and choose the scopes.
+4. Scan the QR code with an authenticator app such as Google Authenticator,
+   save the **TOTP secret** that the dashboard shows, or do both.
+5. Enter the current 6-digit code to confirm the setup.
+6. Copy the **key id** and the **secret** that the dashboard then shows.
+
+Complete the setup within **10 minutes** of step 4. After that, the setup
+expires and you must start again. Sahi stores nothing until you confirm a
+correct code, so an abandoned setup leaves no key behind.
+
+**Store the TOTP secret like the key secret.** Sahi shows it only during the
+setup and cannot show it again. If you lose both the TOTP secret and the
+authenticator app, revoke the key and create a new one. A new key has a new key
+id, a new secret and a new TOTP secret.
+
+A client that mints unattended must hold the TOTP secret and calculate the code
+at mint time. A standard TOTP library does this: give it the TOTP secret as
+the dashboard shows it, with no other settings.
 
 ## Register your static IP
 
@@ -118,6 +167,11 @@ on the day it is made without a second step.
 An unapproved key still exists and still lists; it simply cannot mint. Attempts
 to mint from one are refused with `403`.
 
+**A TOTP key needs no click.** Each mint from a TOTP key must carry a correct
+code, and the first correct code of the trading day records the approval. The
+dashboard then shows the key as approved for that day. The **Approve** action
+does not apply to a TOTP key and returns `409`.
+
 ## Mint an access token
 
 This is the only endpoint your code calls to authenticate, and the only public
@@ -141,6 +195,37 @@ Content-Type: application/json
 | `key_id` | string | yes | The key id shown when you created the key. |
 | `secret` | string | yes | The secret shown once at creation. |
 | `scopes` | array | no | Narrows the token to a subset of the key's scopes. Omit it to get the key's full set. It can only narrow: asking for a scope the key does not hold is rejected. |
+| `totp` | string | TOTP keys only | The current 6-digit code, as a string so that leading zeros stay. Required for a TOTP key. Leave it out for a Regular key: a Regular key with `totp` is rejected. |
+
+For a TOTP key, add the current code:
+
+```json
+{
+  "key_id": "pk_d1jqhcg55l6bd0e0oq3g",
+  "secret": "sahi_sk_5Kw...Qr_9b1c2d3e",
+  "totp": "042917"
+}
+```
+
+The code can come from either place:
+
+- **Your authenticator app.** Type the code the app shows, when you start the
+  client yourself.
+- **The TOTP secret.** A client that runs unattended calculates the code at
+  mint time with a TOTP library. The Python SDK shows this in
+  [Mint with a TOTP key](/sdk/python/authentication/#mint-with-a-totp-key).
+
+Both make the same codes, so you can use the app on one day and the TOTP secret
+on another.
+
+- **Keep the host clock correct.** Sahi accepts the current code and the codes
+  of the 30-second steps before and after it. A clock that drifts more than
+  that gives wrong codes. Use NTP on the host.
+- **A retry can send the same code.** Sahi does not mark a code as used, so a
+  mint whose response you did not receive can repeat with the same code inside
+  its window.
+- **Wrong codes are rate limited per key.** After 10 wrong codes in a minute,
+  mints from that key can get `429` until the next minute.
 
 The response is `200 OK`:
 
@@ -198,7 +283,8 @@ request. See [WebSocket connections](/#websocket-connections).
   regulatory intent, not an omission, which is also why approval lapses on the
   same boundary.
 - When a token expires, or any `/v1` call returns `401`, mint again. If the new
-  mint returns `403`, the key needs approving for the new day.
+  mint returns `403`, the key needs approving for the new day. A TOTP key does
+  not need this: the code in the new mint approves the new day.
 - WebSocket connections close with code `4401` at expiry or revocation.
   Reconnect with a fresh token: the order stream then re-runs
   [Stream + Snapshot](/api/v1/reference/orders/#stream--snapshot), and the tick
@@ -215,11 +301,22 @@ Minting, on the auth host:
 
 | Status | Code | Usually means |
 |---|---|---|
-| `400` | `InvalidRequest` | A field is missing or malformed, or the requested scopes are not a subset of the key's |
+| `400` | `InvalidRequest` | A field is missing or malformed, or the requested scopes are not a subset of the key's. Also: a TOTP key without a 6-digit `totp`, or a Regular key with one |
 | `401` | `Unauthorized` | Unknown key id, wrong secret, or the key has been revoked. These are deliberately indistinguishable |
+| `401` | `InvalidTotp` | The secret is correct but the TOTP code is wrong. The body has `server_time`; compare it with your clock |
 | `401` | `Locked` | Your account is frozen or locked |
-| `403` | `Forbidden` | The key is not approved for the current trading day |
-| `429` | `TooManyRequests` | Too many mint attempts. Back off to the next minute |
+| `403` | `Forbidden` | The Regular key is not approved for the current trading day, or API keys are not enabled for your account yet. A TOTP key gets this code only for the second reason |
+| `429` | `TooManyRequests` | Too many mint attempts, or too many wrong TOTP codes. Back off to the next minute |
+
+A wrong TOTP code returns the server's time, so a bot can find clock drift:
+
+```json
+{
+  "code": "InvalidTotp",
+  "message": "The TOTP code is not valid",
+  "server_time": "2026-10-27T03:45:12Z"
+}
+```
 
 Calling the API, on the API host:
 
@@ -234,16 +331,23 @@ A `403 IP_NOT_ALLOWED` on a call that worked yesterday almost always means your
 egress address moved: a new NAT gateway, a failed-over line, a container
 rescheduled into another subnet.
 
+A TOTP key protects the daily approval, not a compromised host. A bot usually
+keeps the key secret and the TOTP secret in the same place, so an attacker who
+reads one usually reads both. The static IP check and revocation are the
+defence for that case: if a host is compromised, revoke the key.
+
 ## Checklist
 
 1. Create a key in your Sahi account with the scopes you need, and store the
-   secret as a backend secret. It is shown once.
+   secret as a backend secret. It is shown once. For an unattended bot, make it
+   a TOTP key and store the TOTP secret the same way.
 2. If the client places orders, register the **public egress IP** it calls from,
    checked from the host that will run it. Add a secondary only for a genuine
    backup path.
-3. Approve the key each trading day.
+3. Approve a Regular key each trading day. A TOTP key needs no approval.
 4. Mint a token at start of day from `/api/v1/apikeys/token`, narrowing `scopes`
-   to what that process needs, and reuse it until 06:00 IST.
+   to what that process needs, and reuse it until 06:00 IST. For a TOTP key,
+   send the current code in `totp`.
 5. Download the [scrip master](/api/v1/reference/scrip-master/) at start of day
    and map instruments to `instrument_id` for market data, or `exchange_segment`
    plus `symbol` for orders.
@@ -252,4 +356,3 @@ rescheduled into another subnet.
    and [tick](/api/v1/reference/market-data/#wss-v1streammarketdata--tick-stream)
    streams for live updates — applying Stream + Snapshot on every order-stream
    connect.
-

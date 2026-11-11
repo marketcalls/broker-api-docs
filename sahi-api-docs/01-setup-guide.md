@@ -1,8 +1,10 @@
 # Set up your Sahi API
 
-> Source: *Sahi API Setup Guide* (Sahi Direct API · Quick start). Full reference: https://docs.sahi.com/
+> Source: *Sahi API Setup Guide* (Sahi Direct API · Quick start), updated from https://docs.sahi.com/quick-start/ on 2026-11-11 (TOTP keys). Full reference: https://docs.sahi.com/
 
 Six steps to your first API order. You need a **Sahi account**, and a **fixed public IP** if you will place orders.
+
+There are two key types. A **Regular** key is approved in the dashboard each trading day (Step 3); a **TOTP** key approves itself with an authenticator code at sign-in, so an unattended bot needs no daily click.
 
 The guide covers two ways to call the API. Part A is the same for both; Part B gives each step for the **Python SDK** (`pip install sahiapi`) and for **cURL** (any HTTP client).
 
@@ -10,7 +12,7 @@ The guide covers two ways to call the API. Part A is the same for both; Part B g
 | --- | --- | --- |
 | 1 | [Create an API key](#step-1-create-an-api-key) | in the dashboard |
 | 2 | [Register your static IP](#step-2-register-your-static-ip-orders-only) | orders only |
-| 3 | [Approve the key every trading day](#step-3-approve-the-key-every-trading-day) | resets 6 AM IST |
+| 3 | [Approve the key every trading day](#step-3-approve-the-key-every-trading-day) | Regular keys only; resets 6 AM IST |
 | 4 | Sign in: [Python SDK](#step-4-python-sdk-install-the-sdk-and-sign-in) / [cURL](#step-4-curl-mint-a-token-and-sign-in) | |
 | 5 | [Make your first calls](#step-5-make-your-first-calls) | LTP → funds → order |
 | 6 | [Every trading day](#step-6-every-trading-day) | |
@@ -27,13 +29,18 @@ Sahi web → Profile → API Dashboard
 2. Click **Create API key**. Complete two-factor verification if asked.
 3. Enter a **Name** you will recognise later, e.g. `Trading bot`.
 4. Choose the **Access**: **Full access** (orders + market data) or **Market data** (data only; needs no static IP).
-5. Click **Create API key**.
-6. Copy the **API key** (`pk_…`) and the **API secret** (`sahi_sk_…`) somewhere safe. *The secret is shown only once.*
-7. Tick **I have saved my credentials** and click **Done**.
+5. Choose the **Key type**:
+   - **Regular**: you approve the key in the dashboard every trading day (Step 3).
+   - **TOTP**: an authenticator code approves it at sign-in, so a scheduled bot runs without you.
+6. Finish creating it:
+   - **Regular**: click **Create API key**.
+   - **TOTP**: click **Continue**, scan the QR code with an authenticator app (or copy the setup key, the **TOTP secret**), enter the current 6-digit code and click **Create API key**. *Finish within 10 minutes; nothing is created until a correct code is accepted. The TOTP secret is shown only during setup: store it with your other secrets.*
+7. Copy the **API key** (`pk_…`) and the **API secret** (`sahi_sk_…`) somewhere safe. *The secret is shown only once.*
+8. Tick **I have saved my credentials** and click **Done**.
 
 > **Good to know:** you can hold up to 5 keys. Deleting a key stops every token minted from it immediately.
 
-*Videos in the original guide:* **Create a key** (steps 1–7 above); **Delete a key** (trash icon → Delete).
+*Videos in the original guide:* **Create a key** (steps 1–8 above); **Delete a key** (trash icon → Delete).
 
 ### Step 2: Register your static IP (orders only)
 
@@ -54,6 +61,8 @@ Sahi web → Profile → API Dashboard
 
 ### Step 3: Approve the key every trading day
 
+Regular keys only. A TOTP key needs no click: the first correct code of the trading day, sent at sign-in, approves it, and **Approve** on a TOTP key returns `409`.
+
 1. Open the **API Dashboard** after 6 AM IST. Your key now shows `Expired`. *A key created today is already approved.*
 2. Click **Approve** on the key. Its status changes to `Resets 6 AM tomorrow`.
 3. Sign in from your code (Step 4). *Access tokens also expire at 6 AM IST, so every program signs in once a day.*
@@ -71,8 +80,10 @@ Python SDK `sahiapi`, or cURL (any HTTP client works the same way).
 1. Install the SDK from PyPI (Python 3.9 or newer; use `pip3` if `pip` is not found):
 
    ```bash
-   pip install sahiapi
+   pip install sahiapi pyotp
    ```
+
+   *A TOTP key needs `sahiapi` 0.3.0 or newer; `pyotp` lets an unattended bot calculate the code from the TOTP secret.*
 
 2. Save this as `hello.py`, replace `pk_...` and `sahi_sk_...` with your key id and secret, and run `python3 hello.py`:
 
@@ -82,6 +93,8 @@ Python SDK `sahiapi`, or cURL (any HTTP client works the same way).
    api = SahiAPI.from_credentials(
        key_id="pk_...",
        secret="sahi_sk_...",
+       # TOTP key only: the current 6-digit code, typed in or calculated:
+       # totp=pyotp.TOTP("YOUR_TOTP_SECRET").now(),
    )
 
    print(api.get_profile())
@@ -90,6 +103,7 @@ Python SDK `sahiapi`, or cURL (any HTTP client works the same way).
 3. You should see your profile printed. You are signed in; the token lasts until 6 AM IST, so sign in once a day.
    - `SahiKeyNotApprovedException` → approve the key (Step 3).
    - `SahiAuthenticationException` → wrong key id or secret.
+   - `SahiInvalidTotpException` → wrong TOTP code; check the machine's clock.
    - Keep the secret out of shared code: load it from an environment variable or a secret store.
 
 ### Step 4 (cURL): Mint a token and sign in
@@ -102,6 +116,8 @@ Python SDK `sahiapi`, or cURL (any HTTP client works the same way).
      -d '{"key_id":"pk_your_key_id","secret":"sahi_sk_your_secret"}'
    # → {"access_token":"eyJ…","token_type":"Bearer","expires_in":65275,"expires_at":"…T06:00:00+05:30","scope":"…"}
    ```
+
+   For a **TOTP key**, also send the current code as a string (leading zeros kept): `"totp":"042917"`. A Regular key with `totp` is rejected.
 
 2. Copy the `access_token` value into a variable:
 
@@ -118,6 +134,7 @@ Python SDK `sahiapi`, or cURL (any HTTP client works the same way).
 4. You should see your profile. You are signed in; mint once a day.
    - `403 Forbidden` on mint → approve the key (Step 3).
    - `401` → wrong key id or secret.
+   - `401 InvalidTotp` → wrong TOTP code; check the machine's clock (the reply carries `server_time`).
 
 ### Step 5: Make your first calls
 
@@ -256,7 +273,7 @@ See the docs.
 
 ### Step 6: Every trading day
 
-1. Approve the key in the API Dashboard.
+1. Approve a Regular key in the API Dashboard (a TOTP key approves itself with the code at sign-in).
 2. Sign in once and reuse the token until 6 AM IST.
 3. If orders fail with `403 IP_NOT_ALLOWED`, your public IP has changed: re-check it (Step 2).
 

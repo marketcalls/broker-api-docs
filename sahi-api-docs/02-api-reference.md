@@ -1,4 +1,4 @@
-> Source: https://docs.sahi.com/llms-full.txt (Sahi APIs - Contracts v1), fetched 2026-10-29.
+> Source: https://docs.sahi.com/llms-full.txt (Sahi APIs - Contracts v1), fetched 2026-11-11.
 
 <!-- source: https://docs.sahi.com/api/v1/reference/ -->
 
@@ -9,6 +9,10 @@
 The Sahi APIs let you build your own tools on your Sahi account: read the
 market, place and manage your orders, and keep track of your positions, holdings
 and funds.
+
+> New here? Start with the [Quick start](/quick-start/) in the Get started
+> section. It takes you from a new API key to your first order in five steps,
+> with the Python SDK or cURL.
 
 The REST endpoints are HTTPS with JSON bodies, and there are two WebSocket
 streams for anything live. Any HTTP client will do, and order updates arrive as
@@ -73,17 +77,19 @@ without losing events.
 
 ### How to work through this
 
-1. **[Authentication](/api/v1/reference/authentication/)** comes first. Create
-   an API key, register the static IP you place orders from, and exchange the key
-   for a token. Nothing below works without one.
-2. **Conventions**, further down this page. The rules that hold for every
+1. **[Quick start](/quick-start/)**, if you are new. Five steps from a new API
+   key to a first order, with the Python SDK or cURL.
+2. **[Authentication](/api/v1/reference/authentication/)**. Create an API key,
+   register the static IP you place orders from, and exchange the key for a
+   token. Nothing below works without one.
+3. **Conventions**, further down this page. The rules that hold for every
    endpoint — money in paise, quantities in units, timestamps in milliseconds,
    identifiers as strings. Reading them once saves debugging later.
-3. **[Scrip master](/api/v1/reference/scrip-master/)**. Download the daily
+4. **[Scrip master](/api/v1/reference/scrip-master/)**. Download the daily
    instrument file and map the symbols you care about. Orders address instruments
    by `exchange_segment` and `symbol`; market data addresses them by
    `instrument_id`, and both come from this file.
-4. **The endpoints you need**, from the two groups above. Each page lists its
+5. **The endpoints you need**, from the two groups above. Each page lists its
    endpoints with every field, and shows the request and response beside them.
 
 ### Getting help
@@ -104,7 +110,8 @@ bug worth reporting. Write to
   One that does not is refused with `403 IP_NOT_ALLOWED`, whatever the token
   permits. Read-only endpoints and the WebSocket streams are not IP-checked.
 - Timestamps are integer milliseconds since Unix epoch (UTC).
-- Money values are integer **paise**. Example: `2499.55` INR is sent and returned as `249955`.
+- Money values are integer **paise**, in requests as well as responses. Example: `2499.55` INR is sent and returned as `249955`. A decimal such as `2499.55` is refused with `422 VALIDATION_FAILED`.
+- A successful request returns a `2xx` status, and not always `200`: [place order](/api/v1/reference/orders/#post-v1orders--place-order) returns `201 Created` and [cancel order](/api/v1/reference/orders/#delete-v1ordersorder_id--cancel-order) returns `204 No Content` with an empty body. Treat any `2xx` as success. Each endpoint shows its success status under its route.
 - Quantity is integer units, not lots. Example: 1 NIFTY lot of 65 contracts is `qty: 65`.
 - Instrument identifier:
   - **Order APIs** use `exchange_segment` + `symbol` pair.
@@ -127,10 +134,21 @@ bug worth reporting. Write to
 |---|---|
 | `txn_type` | `B` (buy), `S` (sell) |
 | `order_type` | `LMT`, `MKT`, `SL-LMT`, `SL-MKT` |
-| `product` | `C` (delivery, cash segment), `I` (intraday), `M` (carry-forward, F&O), `F` (MTF, NSE only) |
+| `product` | `C`, `I`, `M`, `F` — see [Product](#product) |
 | `validity` | `DAY`, `IOC` |
 | `variant` | `REGULAR` (default), `AMO` — see [After-market orders](/api/v1/reference/orders/#after-market-orders) |
 | `status` | See [Order status](#order-status) |
+
+### Product
+
+`product` says how a position is held. Each value is valid only on some segments. Any other pair of `product` and `exchange_segment` is refused with `400 VALIDATION_FAILED`, and nothing is placed.
+
+| Value | Meaning | Valid on |
+|---|---|---|
+| `C` | Delivery. Shares you buy go to your demat account. | `NSE`, `BSE` |
+| `I` | Intraday. The position is for the same trading day only. | `NSE`, `BSE`, `NFO`, `BFO` |
+| `M` | Carry-forward (normal). The F&O position stays open from day to day until you close it or the contract expires. | `NFO`, `BFO` |
+| `F` | Margin trading facility (MTF). | `NSE` |
 
 ### Error envelope
 
@@ -215,10 +233,10 @@ To learn what an order would block before you send it, post the same body to [Or
 | `txn_type` | string | yes | `B` \| `S`. |
 | `qty` | integer | yes | Total quantity in units. Must not exceed the instrument's freeze quantity — see [Freeze quantity](#freeze-quantity). |
 | `order_type` | string | yes | `LMT` \| `MKT` \| `SL-LMT` \| `SL-MKT`. |
-| `product` | string | yes | `C` \| `I` \| `M` \| `F`. |
+| `product` | string | yes | `C` delivery \| `I` intraday \| `M` carry-forward F&O \| `F` MTF. Each is valid only on some segments — see [Product](#product). A wrong pair is refused with `400 VALIDATION_FAILED`. |
 | `validity` | string | yes | `DAY` \| `IOC`. |
-| `price` | integer | yes | Paise. Use `0` for `MKT` / `SL-MKT`. Must be a multiple of tick size for `LMT` / `SL-LMT`. |
-| `trigger_price` | integer | conditional | Paise. Required for `SL-LMT` / `SL-MKT`. |
+| `price` | integer | yes | Integer **paise**, not rupees: ₹119.65 is `11965`. A decimal is refused with `422 VALIDATION_FAILED`. Use `0` for `MKT` / `SL-MKT`. Must be a multiple of tick size for `LMT` / `SL-LMT`. |
+| `trigger_price` | integer | conditional | Integer paise, as `price`. Required for `SL-LMT` / `SL-MKT`. |
 | `disclosed_qty` | integer | no | Disclosed quantity. |
 | `market_protection` | number | no | `MKT` / `SL-MKT` only: `-1` applies auto protection, or a custom percentage (`0.01`–`100`, e.g. `2` = 2%). Omitted means auto protection. `0` is rejected. Ignored for `LMT` / `SL-LMT`. See [Market protection](#market-protection). |
 | `variant` | string | no | `REGULAR` (default) \| `AMO`. `AMO` queues an after-market order for the next trading session — `LMT` / `SL-LMT` only. See [After-market orders](#after-market-orders). |
@@ -308,10 +326,10 @@ Provide only the fields being changed; at least one is required.
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | `qty` | integer | no | New total quantity. Must not exceed the instrument's freeze quantity — see [Freeze quantity](#freeze-quantity). |
-| `price` | integer | no | Paise. |
+| `price` | integer | no | Integer paise, not rupees, as on place order. |
 | `order_type` | string | no | `LMT` \| `MKT` \| `SL-LMT` \| `SL-MKT`. An after-market order cannot be switched to `MKT` / `SL-MKT` (`400`). |
 | `validity` | string | no | `DAY` \| `IOC`. |
-| `trigger_price` | integer | no | Paise. |
+| `trigger_price` | integer | no | Integer paise, as `price`. |
 | `disclosed_qty` | integer | no | |
 | `market_protection` | number | no | Applies when the merged modify targets `MKT` / `SL-MKT` (which re-runs the one-shot conversion — see [Market protection](#market-protection)); ignored otherwise, and not a modification by itself. |
 
@@ -397,7 +415,7 @@ for an order accepted today, so a gap means our instrument table is stale, and w
 | `symbol` | string | The scrip master's `symbol` column — the same value `POST /v1/orders` takes. |
 | `txn_type` | string | `B` \| `S`. |
 | `order_type` | string | `LMT` \| `MKT` \| `SL-LMT` \| `SL-MKT`. |
-| `product` | string | `C` \| `I` \| `M` \| `F`. |
+| `product` | string | `C` \| `I` \| `M` \| `F` — see [Product](#product). |
 | `validity` | string | `DAY` \| `IOC`. |
 | `qty` | integer | Total quantity, units. |
 | `disclosed_qty` | integer | Disclosed quantity. |
@@ -545,7 +563,7 @@ Single-shot; no pagination. Fills are ordered oldest first.
 | `exchange_segment` | string | `NSE` \| `NFO` \| `BSE` \| `BFO`. |
 | `symbol` | string | The scrip master's `symbol` column — the same value `POST /v1/orders` takes. |
 | `txn_type` | string | `B` \| `S`. |
-| `product` | string | `C` \| `I` \| `M` \| `F`. |
+| `product` | string | `C` \| `I` \| `M` \| `F` — see [Product](#product). |
 | `qty` | integer | Units filled by *this* trade — not a running total. |
 | `price` | integer | Price this trade filled at, paise. |
 | `traded_at` | integer | Epoch ms. The exchange's match time for the fill. |
@@ -688,7 +706,7 @@ Returns net positions across all products.
 | `exchange_segment` | string | `NSE` \| `NFO` \| `BSE` \| `BFO`. |
 | `symbol` | string | The scrip master's `symbol` column — the same value `POST /v1/orders` takes. |
 | `instrument_id` | integer | Scrip-master `id`. Use with the Market Data APIs. |
-| `product` | string | `C` \| `I` \| `M` \| `F`. |
+| `product` | string | `C` \| `I` \| `M` \| `F` — see [Product](#product). |
 | `day_buy_qty`, `day_buy_amt`, `day_buy_avg_price` | integer | Buys executed today. |
 | `day_sell_qty`, `day_sell_amt`, `day_sell_avg_price` | integer | Sells executed today. |
 | `cf_buy_qty`, `cf_buy_amt`, `cf_buy_avg_price` | integer | The position carried forward from previous days, when it came in long. |
@@ -856,7 +874,7 @@ Every figure is integer paise. The account above holds ₹1,05,000 of cash, ₹2
 
 **`available.options_buying`** — RMS keeps option premium in three pools that must not cross-fund. Premium received is spending power only inside its own pool; in the other pools it may offset charges, but nothing more. Size an option buy against the pool its `exchange_segment` belongs to — using another pool's figure over-orders, and the OMS rejects the order.
 
-| Field | `exchange_segment` | Notes |
+| Pool | `exchange_segment` | Notes |
 |---|---|---|
 | `equity_fno` | `NFO`, `BFO` | Equity and index options. |
 | `mcx` | `MCX` | MCX commodity options. |
@@ -957,10 +975,10 @@ The body is the one you would send to [`POST /v1/orders`](/api/v1/reference/orde
 | `txn_type` | string | yes | `B` \| `S`. |
 | `qty` | integer | yes | Total quantity in units. |
 | `order_type` | string | yes | `LMT` \| `MKT` \| `SL-LMT` \| `SL-MKT`. |
-| `product` | string | yes | `C` \| `I` \| `M` \| `F`. |
+| `product` | string | yes | `C` delivery \| `I` intraday \| `M` carry-forward F&O \| `F` MTF. Each is valid only on some segments — see [Product](#product). A wrong pair is refused with `400 VALIDATION_FAILED`. |
 | `validity` | string | yes | `DAY` \| `IOC`. Required for parity with place order; does not affect margin. |
-| `price` | integer | yes | Paise. Use `0` for `MKT` / `SL-MKT`. Must be a multiple of tick size for `LMT` / `SL-LMT`. |
-| `trigger_price` | integer | conditional | Paise. Required for `SL-LMT` / `SL-MKT`. |
+| `price` | integer | yes | Integer **paise**, not rupees: ₹119.65 is `11965`. A decimal is refused with `422 VALIDATION_FAILED`. Use `0` for `MKT` / `SL-MKT`. Must be a multiple of tick size for `LMT` / `SL-LMT`. |
+| `trigger_price` | integer | conditional | Integer paise, as `price`. Required for `SL-LMT` / `SL-MKT`. |
 | `disclosed_qty` | integer | no | Accepted; does not affect margin. |
 | `market_protection` | number | no | As on place order: sets the protected price a `MKT` / `SL-MKT` order is quoted at. Ignored for `LMT` / `SL-LMT`. |
 | `variant` | string | no | `REGULAR` (default) \| `AMO`. Validated as on place order (a `MKT` / `SL-MKT` AMO is rejected); does not affect margin. |
@@ -1671,4 +1689,3 @@ id,isin,symbol,company_name,series,underlying_symbol,exchange,segment,token,inst
 ```
 
 ---
-
