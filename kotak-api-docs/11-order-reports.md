@@ -130,7 +130,13 @@ No request body or parameters required.
 | exSeg | string | Exchange segment e.g., "nse_cm" |
 | ordGenTp | string | "AMO" for after-market orders, else blank |
 | ordDtTm | string | Order date/time |
+| GuiOrdId | string | Caller-defined tag sent as `ig` in place order, echoed back; empty when no tag was sent |
 | stat | string | Overall status at top level: "Ok" for success |
+
+The table above is the vendor's own truncated and simplified list, not the full
+response. Kotak states that the order book "contains all available fields per
+order as per API glossary" — a separate page. Treat a field's absence from this
+table as "not listed here", never as "not returned".
 
 ### 5.2 Order History Response
 
@@ -173,6 +179,9 @@ No request body or parameters required.
 | prcTp | string | Order type ("L", "MKT", etc.) |
 | rejRsn | string | Rejection reason if applicable |
 
+Partial, as above. Kotak notes the full list of response fields is in the Order
+Book API glossary, since most fields are common across these APIs.
+
 ### 5.3 Trade Book Response
 
 ```json
@@ -214,6 +223,26 @@ No request body or parameters required.
 | ordDur | string | Order validity (DAY/IOC) |
 | trnsTp | string | Transaction type (B/S) |
 | usrId | string | User/client ID |
+| GuiOrdId | string | Caller-defined tag sent as `ig` in place order, echoed back; empty when no tag was sent |
+
+Partial, as above — Kotak says "additional fields are available and can be
+referenced from the API glossary". A live trade object carries roughly 50 keys
+against the 13 listed here.
+
+Among the undocumented ones is a per-fill identity group, which matters because
+`nOrdNo` is shared by every fill of one order and so cannot key an individual
+trade:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| flId | string | Fill ID — the per-fill identifier. Not listed in Kotak's own table, but present in every trade object in the SDK's sample response (`docs/functions/orders/trade_report.md`, values such as `207983744`) |
+| flLeg | int | Fill leg number within the order |
+| flTm | string | Fill time, **time only** (e.g. `14:28:16`) — unlike `exTm`, which carries the full date and time. Use `exTm` when a date is needed |
+
+Caution on `flId`: Kotak's published samples show one fill per order, so no
+sample demonstrates two fills of the *same* `nOrdNo` carrying distinct `flId`
+values. The name and its grouping with `flDt`/`flLeg`/`flTm` make per-fill
+uniqueness the clear reading, but it is inferred, not documented.
 
 ### Common Response Fields
 

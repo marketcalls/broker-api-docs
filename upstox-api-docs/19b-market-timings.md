@@ -22,6 +22,15 @@
 
 MCX, NSE, NFO, CDS, BSE, BCD, BFO
 
+## Segment Close Times
+
+Effective 3 August 2026 the derivatives segments close later than the cash segments. Read the per-segment `NORMAL_CLOSE` from the Exchange Status API rather than assuming a single 3:30 PM close.
+
+| Segment | `NORMAL_CLOSE` (IST) |
+|---------|----------------------|
+| `NSE_EQ`, `BSE_EQ` | 3:30 PM |
+| `NSE_FO`, `BSE_FO` | 3:40 PM |
+
 ## Error Codes
 
 | Code | Description |

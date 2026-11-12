@@ -23,7 +23,12 @@ All endpoints require: `Authorization: Bearer {access_token}`
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/v2/user/profile` | Get user profile |
-| GET | `/v2/user/get-funds-and-margin` | Get funds and margin |
+| GET | `/v3/user/get-funds-and-margin` | Get funds and margin (V3, detailed breakdown) |
+| GET | `/v2/user/get-funds-and-margin` | Get funds and margin (V2) |
+| GET | `/v2/user/kill-switch` | Get kill switch status |
+| POST | `/v2/user/kill-switch` | Enable/disable trading segments |
+| GET | `/v2/user/ip` | Get registered static IPs |
+| PUT | `/v2/user/ip` | Update registered static IPs |
 
 ## Charges & Margins
 
@@ -89,6 +94,7 @@ All endpoints require: `Authorization: Bearer {access_token}`
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| GET | `/v3/market-quote/quotes` | Full market quotes V3 (max 500, includes CAS data) |
 | GET | `/v2/market-quote/quotes` | Full market quotes (max 500) |
 | GET | `/v3/market-quote/ohlc` | OHLC quotes V3 |
 | GET | `/v3/market-quote/ltp` | LTP quotes V3 |
@@ -133,9 +139,84 @@ All endpoints require: `Authorization: Bearer {access_token}`
 | Market Data Feed V3 | Real-time price updates |
 | Portfolio Stream Feed | Order and position updates |
 
+## Payments
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/user/payments/payin` | Get payin history |
+| GET | `/v2/user/payments/payout` | Get payout history |
+| GET | `/v2/user/payments/payout/modes` | Get eligible payout modes |
+| POST | `/v2/user/payments/payout` | Request a payout |
+| PUT | `/v2/user/payments/payout/{transaction_id}` | Modify a pending payout |
+| DELETE | `/v2/user/payments/payout/{transaction_id}` | Cancel a pending payout |
+
+## IPO
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/ipos` | List IPOs by status and issue type |
+| GET | `/v2/ipos/{id}` | Get IPO details |
+| POST | `/v2/ipos/orders` | Apply to an IPO (max 3 bids) |
+| GET | `/v2/ipos/orders` | List IPO applications |
+| GET | `/v2/ipos/orders/{order_id}` | Get IPO application details |
+| DELETE | `/v2/ipos/orders/{order_id}` | Cancel an IPO application |
+
+## Mutual Funds
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/mf/holdings` | Get mutual fund holdings |
+| GET | `/v2/mf/orders` | Get mutual fund order book |
+| GET | `/v2/mf/orders/{order_id}` | Get mutual fund order details |
+| GET | `/v2/mf/sips` | Get registered SIPs |
+
+## Fundamentals
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/fundamentals/{isin}/profile` | Company profile |
+| GET | `/v2/fundamentals/{isin}/balance-sheet` | Balance sheet |
+| GET | `/v2/fundamentals/{isin}/income-statement` | Income statement |
+| GET | `/v2/fundamentals/{isin}/cash-flow` | Cash flow statement |
+| GET | `/v2/fundamentals/{isin}/key-ratios` | Key ratios |
+| GET | `/v2/fundamentals/{isin}/share-holdings` | Shareholding pattern |
+| GET | `/v2/fundamentals/{isin}/corporate-actions` | Corporate actions |
+| GET | `/v2/fundamentals/{isin}/competitors` | Competitor instrument keys |
+
+## News
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/news` | News by instrument keys or category |
+
+## Market Analytics
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/market/oi` | Open interest per strike |
+| GET | `/v2/market/change-oi` | Change in open interest per strike |
+| GET | `/v2/market/pcr` | Put-call ratio |
+| GET | `/v2/market/max-pain` | Max pain strike |
+| GET | `/v2/market/fii` | FII activity data |
+| GET | `/v2/market/dii` | DII activity data |
+
+## Smartlist
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/v2/market/smartlist/futures` | Ranked futures contracts |
+| GET | `/v2/market/smartlist/options` | Ranked options contracts |
+| GET | `/v2/market/smartlist/mtf` | MTF-eligible stocks |
+
 ## Exchanges Supported
 
 NSE, BSE, NFO, MCX, CDS, BFO, BCD, NSCOM
+
+Global instruments (`GLOBAL_INDEX`, `GLOBAL_INDICATOR`) are available from the global instruments file.
+
+## Segment Close Times
+
+Effective 3 August 2026: `NSE_EQ` / `BSE_EQ` close at 3:30 PM IST, `NSE_FO` / `BSE_FO` at 3:40 PM IST.
 
 ## Products
 

@@ -29,6 +29,8 @@ Search instruments by name, symbol, or contract specifications across multiple e
 
 **Indices:** name, segment, exchange, instrument_key, exchange_token, trading_symbol, instrument_type
 
+Equity records also carry `cas_eligible` (boolean, added 3 August 2026) indicating whether the security participates in the exchange Closing Auction Session. Read this flag dynamically rather than hardcoding a static list.
+
 ## Error Codes
 
 | Code | Description |

@@ -13,6 +13,39 @@ wss://piconnect.flattrade.in/PiConnectWSAPI/
 1. As soon as the connection is established, send a connect request with the User ID and login session ID.
 2. All input and output messages are in JSON format.
 
+### One session per credential pair (observed, not documented)
+
+> **This is not in the official documentation.** The portal says nothing about
+> how many WebSocket connections a user may hold — searching it for
+> "simultaneous", "concurrent", "single session", "only one" or "disconnect"
+> returns no matches (checked against Version 2.0 / Last Updated 31st Mar 2026).
+> It is recorded here because it is load-bearing and costs a working feed to
+> rediscover.
+
+PiConnect accepts **one WebSocket session per `{uid, accesstoken}` pair**. When
+a second connection authenticates with the same credentials, the broker closes
+the *older* socket with an orderly close handshake:
+
+```
+opcode 8, payload b'\x03\xe8'   ->  RFC 6455 status code 1000, "normal closure"
+```
+
+Code 1000 makes this easy to misread. It is not a network fault, not a timeout
+and not an auth rejection (which would be 1008 or a `t:"ak"` nack with
+`s:"Not_Ok"`) — it is the server deliberately hanging up on the connection it
+has decided to replace.
+
+The practical consequence is that market data, order updates (`t:"o"`) and
+position updates (`t:"p"`) must be **multiplexed onto the single connection this
+document describes**. Two sockets — one for quotes and one for order updates —
+do not coexist: each evicts the other on connect, and if both have reconnect
+logic the eviction becomes self-sustaining.
+
+Verified against a live account on 2026-09-01: every one of 13 market-data
+closes landed 100-190 ms after a second connection sent its `t:"a"`, producing
+19 order-socket connects and 26 market-data reconnects in under six minutes.
+See OpenAlgo issue [#1806](https://github.com/marketcalls/openalgo/issues/1806).
+
 ## Connect
 
 Every session must open with a connect message before any subscription.

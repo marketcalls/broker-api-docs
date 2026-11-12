@@ -62,6 +62,7 @@ curl -X POST "<baseUrl>/quick/order/rule/ms/place" \
 | am | string | After Market Order flag | `NO` (normal), `YES` (AMO) |
 | dq | string | Disclosed quantity | `0` or a partial quantity |
 | es | string | Exchange segment code | `nse_cm`, `bse_cm`, `nse_fo`, `bse_fo`, `cde_fo`, `mcx_fo` |
+| ig | string | Optional caller-defined tag for tracking the order; echoed back as `GuiOrdId` in the order and trade reports. Must be non-blank if provided (Python SDK: `tag`) | e.g. `mystrategy1`, `CLIENT-ORD-42` |
 | mp | string | Market protection value (used in some market orders) | `0` or numerical value |
 | pc | string | Product code | `NRML`, `CNC`, `MIS`, `CO`, `BO`, `MTF` |
 | pf | string | Portfolio flag | `N` |

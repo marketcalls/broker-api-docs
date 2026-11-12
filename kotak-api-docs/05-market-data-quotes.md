@@ -27,14 +27,26 @@ Expected values for `exchange_segment` (string):
 - `bse_fo` (BSE F&O)
 - `cde_fo` (CDS F&O)
 
-## 3. Headers
+## 3. Limits and Rate Limiting
+
+A single call may request at most 50 instruments. The limit is enforced at the backend API rather than by the client, and it bounds the size of the response packet.
+
+The endpoint is rate-limited to 25 requests per second.
+
+To fetch more than 50 instruments, split the request into batches of up to 50 instruments each, and pace the batches to stay under 25 requests per second.
+
+### Field-verified caveat
+
+Measured against the live endpoint by the OpenAlgo team: in practice a request carrying 50 symbols is rejected with HTTP 400 and the message `Please set the Neo symbol max value to 50.`, so the effective cap sits below the documented 50. A request with 42 symbols returns 200 and one with 50 returns 400, which places the real cap somewhere in the range 42 to 49. A batch size of 25 keeps a wide margin. URL length is not the constraint: 25 entries is roughly 350 characters.
+
+## 4. Headers
 
 | Name | Type | Description |
 | --- | --- | --- |
 | Authorization | string | Token provided in your NEO API dashboard — use plain token |
 | Content-Type | string | `application/json` |
 
-## 4. Request
+## 5. Request
 
 ```bash
 curl --location --request GET '<Base URL>/script-details/1.0/quotes/neosymbol/nse_cm|Nifty 50,nse_cm|Nifty Bank/all' \
@@ -55,7 +67,7 @@ After all queries, you may append a filter with `/filter_name`. Allowed values (
 - `depth` (order book, top 5 each side)
 - `ltp` (last traded price)
 
-## 5. Response
+## 6. Response
 
 Example Success Response:
 
@@ -146,7 +158,7 @@ Example Error Response:
 | emsg | string | Error message |
 | stCode | int | Error code |
 
-## 6. Notes
+## 7. Notes
 
 - All fields are returned as strings.
 - When using indices, pass the correct case-sensitive index name.
@@ -155,7 +167,7 @@ Example Error Response:
 - Valid exchange segments: `nse_cm`, `bse_cm`, `nse_fo`, `bse_fo`, `cde_fo` (must be passed as string).
 - By default (`/all` or blank) returns all quote data; filters allow more targeted queries.
 
-## 7. Glossary: Index search values
+## 8. Glossary: Index search values
 
 ### NSE (`nse_cm`)
 

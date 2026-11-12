@@ -114,3 +114,19 @@ Server sends periodic `ping` frames automatically. Standard WebSocket libraries 
 ## Protobuf Decoding
 
 Messages require decoding using the `MarketDataFeed.proto` file provided by Upstox.
+
+## Closing Auction Session (CAS) Fields
+
+Added 4 September 2026. The `full` and `full_d30` feeds carry live closing auction values, and `ltpc` carries the indicative equilibrium price wherever it appears in the feed (populated only while the pre-open or closing auction session is active).
+
+| Field | Type | Description |
+|-------|------|-------------|
+| iep | number | Indicative Equilibrium Price - price at which the maximum number of shares can be matched from the current order book |
+| ieq | string | Indicative Equilibrium Quantity - total shares that will execute at the IEP |
+| iiqTotal | string | Total Indicative Imbalance Quantity - net unmatched buy or sell quantity at the IEP (can be negative) |
+| iiqM | string | Market Indicative Imbalance Quantity - the portion of the unmatched total originating from unpriced market orders |
+| rp | string | Reference Price - base price used to calculate price bands and circuit filters for the session |
+| casEligible | boolean | Whether the instrument may participate in a Call Auction Session |
+| ltpc.iep | number | Indicative equilibrium price on `LTPC`, present only while a pre-open or closing auction session is active |
+
+Market status updates now also report each segment's current closing auction and pre-open session status (`preOpenSessionStatus`). See Exchange Status for the CAS phase values.

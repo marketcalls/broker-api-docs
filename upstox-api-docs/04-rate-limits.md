@@ -32,6 +32,35 @@ These limits apply to holdings, positions, funds, historical candles, and simila
 | Per minute | 500 requests |
 | Per 30 minutes | 2000 requests |
 
+## Payout APIs Rate Limits
+
+### Standard Access
+
+Applies to Get Payouts, Get Payout Modes, and Get Payins.
+
+| Time Duration | Request Limit |
+|---|---|
+| Per second | 10 requests |
+| Per minute | 500 requests |
+| Per 30 minutes | 2000 requests |
+
+### Restricted Access
+
+Applies to Payout Request, Modify Payout, and Cancel Payout. Note there is no per-second allowance — the minute limit is the binding constraint.
+
+| Time Duration | Request Limit |
+|---|---|
+| Per minute | 10 requests |
+| Per 30 minutes | 300 requests |
+
+## Apply IPO Rate Limits
+
+| Time Duration | Request Limit |
+|---|---|
+| Per second | 1 request |
+| Per minute | 10 requests |
+| Per 30 minutes | 300 requests |
+
 ## Important Notice
 
 Please adhere to these limits to avoid potential disruptions in service. Exceeding these limits might result in temporary suspension of access.

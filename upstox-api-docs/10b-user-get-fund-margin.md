@@ -4,6 +4,8 @@
 
 This API retrieves user funds data for equity and commodity markets, including margin utilization, available margin for trading, and total payin amounts.
 
+A V3 of this endpoint was released on 10 April 2026 with a restructured `available_to_trade` / `unavailable_to_trade` breakdown. See Get Fund and Margin V3.
+
 ## Endpoint
 
 **GET** `https://api.upstox.com/v2/user/get-funds-and-margin`

@@ -2,6 +2,16 @@
 
 > **Unofficial Markdown conversion** of the Flattrade **Pi** trading API documentation, sourced from the official documentation portal:
 > <https://pi.flattrade.in/docs>
+>
+> Upstream **Version 2.0**, portal "Last Updated: 31st Mar, 2026".
+> Reconciled against the live portal on **2026-09-01**: every section, endpoint,
+> rate-limit figure and change-log entry matched — no upstream drift.
+>
+> Two sections carry notes marked **(observed, not documented)**. Those record
+> live behaviour the official portal does not describe, and are the only content
+> here that is not a conversion of upstream text:
+> [WebSocket — one session per credential pair](09-websocket.md#one-session-per-credential-pair-observed-not-documented)
+> and [Rate Limits — the published limits are a ceiling](14-rate-limits.md#the-published-limits-are-a-ceiling-not-a-guarantee-observed).
 
 Pi is a collection of REST APIs that provides the required capabilities to build a modern stock market investment and trading platform — execute orders in real time (equities, commodities, currency), stream live market data over WebSockets, and more. Pi is part of the same Noren API family as Aliceblue (ANT) and Definedge (INTEGRATE), so the request/response shape (`jData`/`jKey`, `tsym`, `prd`, `trantype`, ...) will look familiar if you've integrated with those.
 

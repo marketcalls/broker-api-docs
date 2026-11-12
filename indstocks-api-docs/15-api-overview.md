@@ -9,6 +9,7 @@ the base URL `https://api.indstocks.com`.
 
 | Endpoint | Method | Purpose | Docs |
 |----------|--------|---------|------|
+| `/generate/token` | POST | Generate an access token via TOTP (`x-api-key` auth) | [04](04-authentication-users.md) |
 | `/user/profile` | GET | User profile and account details | [04](04-authentication-users.md) |
 | `/funds` | GET | Available and utilized funds | [04](04-authentication-users.md) · [12](12-portfolio-funds.md) |
 
@@ -31,7 +32,7 @@ the base URL `https://api.indstocks.com`.
 | `/order/cancel` | POST | Cancel an order | [09](09-order-management.md) |
 | `/order` | GET | Get single order details | [09](09-order-management.md) |
 | `/order-book` | GET | Daily order history | [09](09-order-management.md) |
-| `/trades/{order_id}` | GET | Trades for a specific order | [09](09-order-management.md) |
+| `/order/trades` | GET | Trades (fills) for a specific order — GET with JSON body | [09](09-order-management.md) |
 | `/trade-book` | GET | Trade book for a segment | [09](09-order-management.md) |
 
 ## 4. Smart Orders (GTT)
@@ -64,3 +65,11 @@ the base URL `https://api.indstocks.com`.
 | `/option-chain` | GET | Option chain data | [13](13-utility.md) |
 | `/option-chain-symbols` | GET | Available expiry dates | [13](13-utility.md) |
 | `/greeks` | POST | Option greeks calculation | [13](13-utility.md) |
+
+## 8. Reference
+
+| Page | Contents | Docs |
+|------|----------|------|
+| Glossary & Constants | Every enum, prefix, and identifier format | [16](16-glossary.md) |
+| FAQ | Official FAQ, with corrections | [17](17-faq.md) |
+| Error Bucket | Error types, RMS messages, troubleshooting | [14](14-errors.md) |

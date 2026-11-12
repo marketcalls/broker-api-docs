@@ -31,6 +31,9 @@ Field input regex patterns including order ID, symbol, instrument key, and date 
 ### Changelog
 Official log tracking all Upstox API updates, new endpoints, deprecations, and breaking changes.
 
+### Instant Withdrawal Eligibility
+Conditions under which a payout qualifies for instant withdrawal.
+
 ### Example Codes
 Sample implementations in Python, Node.js, Java, and cURL for quick integration.
 

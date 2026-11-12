@@ -4,6 +4,8 @@
 
 Retrieves comprehensive market data for up to 500 instruments simultaneously with OHLC, depth, volume, and circuit limits.
 
+The V2 endpoint continues to work unchanged. Closing Auction Session data, previous close, year high/low and previous OI are available only on Full Market Quotes V3.
+
 ## Endpoint
 
 **GET** `https://api.upstox.com/v2/market-quote/quotes`

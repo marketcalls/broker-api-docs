@@ -28,9 +28,14 @@ Authorization: YOUR_ACCESS_TOKEN
 
 Instruments use `SEGMENT:TOKEN` notation (note the **colon**, unlike the REST `_` separator):
 
-```
-NSE:2885    NFO:51011    NIDX:26000
-```
+| Type | Prefix | Example |
+|------|--------|---------|
+| NSE Equity | `NSE:` | `NSE:2885` |
+| BSE Equity | `BSE:` | `BSE:500325` |
+| NSE Derivatives | `NFO:` | `NFO:51011` |
+| BSE Derivatives | `BFO:` | `BFO:12345` |
+| NSE Index | `NIDX:` | `NIDX:26000` |
+| BSE Index | `BIDX:` | `BIDX:1` |
 
 ---
 
@@ -79,6 +84,15 @@ Connect to `wss://ws-prices.indstocks.com/api/v1/ws/prices`, then send a subscri
 To stop receiving data, send an `"action": "unsubscribe"` message with the same `mode` and
 `instruments`.
 
+> The docs show a payload example only for `ltp` mode. The `quote` mode payload (OHLC, volume,
+> change, etc.) is not documented — inspect a live frame to confirm its field names.
+
+### Heartbeats
+
+The server may send periodic heartbeat messages to keep the connection alive. Clients should
+handle these, typically by ignoring them. No heartbeat interval or client-ping requirement is
+specified in the official docs.
+
 ---
 
 ## Order Updates
@@ -91,9 +105,12 @@ order stream.
 ```json
 {
   "action": "subscribe",
-  "mode": "order_updates"
+  "mode": "order_update"
 }
 ```
+
+> ⚠️ The mode is **`order_update`** — singular. The order-updates feed accepts only
+> `"action": "subscribe"`; there is no unsubscribe action documented for it.
 
 ### Order Update (streamed)
 
